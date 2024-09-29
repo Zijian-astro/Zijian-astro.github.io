@@ -1,5 +1,5 @@
 ---
-title: "The Research of the Milky Way's Accretion and Merger Origin"
+title: "The Research of the Milky Ways Accretion and Merger Origin"
 collection: publications
 category: manuscripts
 permalink: /publication/2022-12-01-The-Research-of-the-Milky-Ways-Accretion-and-Merger-Origin
