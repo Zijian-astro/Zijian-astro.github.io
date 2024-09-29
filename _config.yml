@@ -27,7 +27,7 @@ author:
   bio              : "Short biography for the left-hand sidebar"
   location         : "Earth"
   employer         :  #"Red Brick University"
-  uri              :  # URL
+  uri              :  "https://zijian-astro.github.io/"
   email            : "zjz.kiaa@stu.pku.edu.cn" 
 
   # Academic websites
