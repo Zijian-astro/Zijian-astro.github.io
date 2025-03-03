@@ -39,3 +39,23 @@
 @import "vendor/font-awesome/brands";
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
+
+
+.archive {
+    max-width: 90%; /* 例如，原本可能是 60%，你可以调大 */
+    margin: 0 auto;
+}
+
+.page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page-content {
+    flex: 1; /* 让内容部分自适应宽度 */
+    max-width: 80%; /* 适当调整 */
+}
+
+.sidebar {
+    max-width: 20%;
+}
