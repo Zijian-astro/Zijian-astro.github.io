@@ -59,3 +59,13 @@
 .sidebar {
     max-width: 20%;
 }
+/* 移除最大宽度限制 */
+.container {
+    max-width: 100%;
+  }
+  
+/* 调整主内容区宽度 */
+#main {
+  float: none;
+  width: 100%;
+}
