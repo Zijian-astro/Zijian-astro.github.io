@@ -1,5 +1,3 @@
-<!-- 在 {% include base_path %} 下方添加 -->
-<div class="publications-grid">
 {% include base_path %}
 
 {% if post.header.teaser %}
@@ -83,18 +81,3 @@
 
   </article>
 </div>
-<!-- 在文件末尾 {% endif %} 之前添加 -->
-</div>
-
-.publications-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1.5rem;
-  align-items: start;
-}
-
-.archive__item {
-  break-inside: avoid;
-  page-break-inside: avoid;
-  margin-bottom: 0;
-}
