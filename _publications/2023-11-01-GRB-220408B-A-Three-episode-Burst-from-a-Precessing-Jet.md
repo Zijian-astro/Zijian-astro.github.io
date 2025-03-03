@@ -1,7 +1,7 @@
 ---
 title: "GRB 220408B: A Three-episode Burst from a Precessing Jet"
 collection: publications
-category: coauthor
+category: firstauthor
 permalink: /publication/2023-11-01-GRB-220408B-A-Three-episode-Burst-from-a-Precessing-Jet
 date: 2023-11-01
 venue: 'Research in Astronomy and Astrophysics'

@@ -1,7 +1,7 @@
 ---
 title: "XMM-Newton Observations of Two Archival X-Ray Weak Type 1 Quasars: Obscuration Induced X-Ray Weakness and Variability"
 collection: publications
-category: coauthor
+category: firstauthor
 permalink: /publication/2023-09-01-XMM-Newton-Observations-of-Two-Archival-X-Ray-Weak-Type-1-Quasars-Obscuration-Induced-X-Ray-Weakness-and-Variability
 date: 2023-09-01
 venue: 'The Astrophysical Journal'
