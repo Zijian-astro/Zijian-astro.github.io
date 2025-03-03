@@ -3,15 +3,15 @@
 {% assign teaser = post.header.teaser | default: site.teaser %}
 {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
 
-<div class="archive__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+<div class="archive__item" style="margin-bottom: 5px; padding: 5px 0;">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork" style="line-height: 1.2;">
     {% if include.type == "grid" and teaser %}
-      <div class="archive__item-teaser">
-        <img src="{{ teaser | prepend: "/images/" | prepend: base_path }}" alt="">
+      <div class="archive__item-teaser" style="margin-bottom: 5px;">
+        <img src="{{ teaser | prepend: "/images/" | prepend: base_path }}" alt="" style="max-height: 100px;">
       </div>
     {% endif %}
 
-    <h2 class="archive__item-title" itemprop="headline">
+    <h2 class="archive__item-title" itemprop="headline" style="margin-bottom: 3px; font-size: 1.1em;">
       {% if post.ads_link %}
         <a href="{{ post.ads_link }}" target="_blank">{{ title }}</a>
       {% elsif post.link %}
@@ -22,17 +22,17 @@
     </h2>
     
     {% if post.collection == 'publications' %}
-      <p><i>{{ post.venue }}</i>, {{ post.date | date: "%Y" }}</p>
+      <p style="margin-bottom: 3px; font-size: 0.9em;"><i>{{ post.venue }}</i>, {{ post.date | date: "%Y" }}</p>
     {% elsif post.date %}
-      <p><i class="fa fa-calendar"></i> {{ post.date | date: "%B %d, %Y" }}</p>
+      <p style="margin-bottom: 3px; font-size: 0.9em;"><i class="fa fa-calendar"></i> {{ post.date | date: "%B %d, %Y" }}</p>
     {% endif %}
 
     {% if post.excerpt %}
-      <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+      <p class="archive__item-excerpt" itemprop="description" style="margin-bottom: 3px; font-size: 0.9em;">{{ post.excerpt | markdownify | remove: "<p>" | remove: "</p>" }}</p>
     {% endif %}
     
     {% if post.citation or post.paperurl or post.slidesurl %}
-      <p>
+      <p style="margin-bottom: 3px; font-size: 0.9em;">
         {% if post.citation %} <strong>Citation:</strong> {{ post.citation }} {% endif %}
         {% if post.paperurl %} | <a href="{{ post.paperurl }}">Download Paper</a> {% endif %}
         {% if post.slidesurl %} | <a href="{{ post.slidesurl }}">Download Slides</a> {% endif %}
