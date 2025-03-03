@@ -21,7 +21,7 @@
       {% endif %}
     </h2>
     
-    {% if post.collection == 'publications' %}
+    <!-- {% if post.collection == 'publications' %}
       <p style="margin-bottom: 3px; font-size: 0.9em;"><i>{{ post.venue }}</i>, {{ post.date | date: "%Y" }}</p>
     {% elsif post.date %}
       <p style="margin-bottom: 3px; font-size: 0.9em;"><i class="fa fa-calendar"></i> {{ post.date | date: "%B %d, %Y" }}</p>
@@ -29,7 +29,7 @@
 
     {% if post.excerpt %}
       <p class="archive__item-excerpt" itemprop="description" style="margin-bottom: 3px; font-size: 0.9em;">{{ post.excerpt | markdownify | remove: "<p>" | remove: "</p>" }}</p>
-    {% endif %}
+    {% endif %} -->
     
     {% if post.citation or post.paperurl or post.slidesurl %}
       <p style="margin-bottom: 3px; font-size: 0.9em;">
