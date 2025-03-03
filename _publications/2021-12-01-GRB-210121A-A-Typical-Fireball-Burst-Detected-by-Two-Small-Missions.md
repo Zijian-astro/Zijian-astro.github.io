@@ -1,6 +1,7 @@
 ---
 title: "GRB 210121A: A Typical Fireball Burst Detected by Two Small Missions"
-collection: publications\category: coauthor
+collection: publications
+category: coauthor
 permalink: /publication/2021-12-01-GRB-210121A-A-Typical-Fireball-Burst-Detected-by-Two-Small-Missions
 date: 2021-12-01
 venue: 'The Astrophysical Journal'
