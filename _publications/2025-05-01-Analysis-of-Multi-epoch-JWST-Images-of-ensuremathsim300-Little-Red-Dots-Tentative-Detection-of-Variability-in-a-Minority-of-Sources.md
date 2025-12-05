@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Multi-epoch JWST Images of ensuremathsim300 Little Red Dots: Tentative Detection of Variability in a Minority of Sources"
+title: "Analysis of Multi-epoch JWST Images of ~300 Little Red Dots: Tentative Detection of Variability in a Minority of Sources"
 collection: publications
 category: firstauthor
 permalink: /publication/2025-05-01-Analysis-of-Multi-epoch-JWST-Images-of-ensuremathsim300-Little-Red-Dots-Tentative-Detection-of-Variability-in-a-Minority-of-Sources
