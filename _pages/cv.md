@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 {% include base_path %}
+You can find my CV here: [Zijian Zhang's Curriculum Vitae](../assets/CV_ZijianZhang.pdf)
 
 Education
 ======

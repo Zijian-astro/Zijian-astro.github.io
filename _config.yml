@@ -11,7 +11,7 @@ locale                   : "en-CN"
 title                    : "Zijian Zhang / Personal Homepage"
 title_separator          : "-"
 name                     : &name "Zijian Zhang"
-description              : &description "a 2nd PhD candidate from Peking University"
+description              : &description "a 3rd PhD candidate from Peking University"
 url                      : https://zijian-astro.github.io
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "Zijian-astro/Zijian-astro.github.io"
@@ -24,7 +24,7 @@ author:
   avatar           : "profile.png"
   name             : "Zijian Zhang"
   pronouns         : "he/his"  
-  bio              : "a 2nd PhD candidate from Peking University"
+  bio              : "a 3rd PhD candidate from PKU"
   location         : "Earth China Beijing"
   employer         :  #"Red Brick University"
   uri              :  "https://zijian-astro.github.io"
@@ -33,7 +33,7 @@ author:
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
   googlescholar    : "https://scholar.google.com/citations?user=iVBtk7MAAAAJ&hl=zh-CN"
-  impactstory      : # URL
+  impactstory      : 'https://ui.adsabs.harvard.edu/public-libraries/VS5BWzVyQMOzCiWsCB0gAw'
   orcid            : "https://orcid.org/0000-0002-2420-5022"
   semantic         : # URL
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
