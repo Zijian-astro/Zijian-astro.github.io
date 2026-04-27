@@ -25,6 +25,16 @@ jobs:
           ADS_DEV_KEY: ${{ secrets.ADS_API_TOKEN }}
         run: python bin/update_ads_publications.py
 
+      - name: Verify ADS citation counts
+        run: |
+          if ! grep -q "ads_citations" _bibliography/papers.bib; then
+            echo "No ads_citations fields were written to _bibliography/papers.bib."
+            echo "First lines of generated BibTeX:"
+            sed -n '1,80p' _bibliography/papers.bib
+            exit 1
+          fi
+          grep -n "ads_citations" _bibliography/papers.bib | head
+
       - name: Commit updated publications
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

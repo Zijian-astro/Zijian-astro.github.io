@@ -186,12 +186,15 @@ def preserve_selected_flags(new_bibtex: str, selected_keys: set[str]) -> str:
 
 
 def add_ads_citation_counts(new_bibtex: str, citation_counts: dict[str, int]) -> str:
+    updated = 0
     parts: list[str] = []
     for chunk in iter_bibtex_entries(new_bibtex):
         key = bibtex_key(chunk)
         if key and key in citation_counts:
             chunk = set_bibtex_field(chunk, "ads_citations", str(citation_counts[key]))
+            updated += 1
         parts.append(chunk)
+    print(f"Added ADS citation counts to {updated} BibTeX entries.")
     return "".join(parts)
 
 
@@ -311,6 +314,7 @@ def fetch_ads_citation_counts(bibcodes: list[str], token: str) -> dict[str, int]
         docs = data.get("response", {}).get("docs", [])
         if docs:
             counts[bibcode] = int(docs[0].get("citation_count") or 0)
+    print(f"Fetched ADS citation counts for {len(counts)} of {len(bibcodes)} bibcodes.")
     return counts
 
 
