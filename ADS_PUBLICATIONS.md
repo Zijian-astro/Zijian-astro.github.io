@@ -16,6 +16,17 @@ Add a repository secret named `ADS_API_TOKEN`:
 
 The workflow can also be run manually from the GitHub Actions tab. The script calls the ADS HTTP API directly, so it does not need the third-party `ads` Python package.
 
-## Selected papers
+## Homepage updates
 
-The update script preserves existing `selected = {true}` flags when ADS refreshes the BibTeX file. To mark another paper as selected, add `selected = {true}` to its BibTeX entry once; future monthly updates will keep that flag as long as the BibTeX key remains the ADS bibcode.
+The publications page always uses the full ADS BibTeX list.
+
+The homepage has two extra rules:
+
+- `selected publications` only shows BibTeX entries with `selected = {true}`. The update script preserves existing selected flags and automatically marks the five newest first-author papers as selected.
+- `news` comes from `_news/`. The update script generates three `ads-publication-*.md` news items from the newest ADS publications.
+
+You can tune these defaults in `.github/workflows/update-publications.yml` by passing options to `bin/update_ads_publications.py`, for example:
+
+```bash
+python bin/update_ads_publications.py --auto-selected 8 --news-limit 5
+```

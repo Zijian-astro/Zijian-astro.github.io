@@ -16,8 +16,40 @@ from urllib.request import Request, urlopen
 
 DEFAULT_LIBRARY_ID = "VS5BWzVyQMOzCiWsCB0gAw"
 DEFAULT_OUTPUT = Path("_bibliography/papers.bib")
+DEFAULT_NEWS_DIR = Path("_news")
 FRONT_MATTER = "---\n---\n\n"
 ADS_API_BASE_URL = "https://api.adsabs.harvard.edu/v1"
+AUTHOR_PATTERNS = [
+    re.compile(r"\{Zhang\},\s*Zijian", re.IGNORECASE),
+    re.compile(r"\{Zhang\},\s*Zi-Jian", re.IGNORECASE),
+    re.compile(r"\{Zhang\},\s*Z\.", re.IGNORECASE),
+]
+MONTHS = {
+    "jan": 1,
+    "january": 1,
+    "feb": 2,
+    "february": 2,
+    "mar": 3,
+    "march": 3,
+    "apr": 4,
+    "april": 4,
+    "may": 5,
+    "jun": 6,
+    "june": 6,
+    "jul": 7,
+    "july": 7,
+    "aug": 8,
+    "august": 8,
+    "sep": 9,
+    "sept": 9,
+    "september": 9,
+    "oct": 10,
+    "october": 10,
+    "nov": 11,
+    "november": 11,
+    "dec": 12,
+    "december": 12,
+}
 
 
 def strip_front_matter(text: str) -> str:
@@ -73,14 +105,125 @@ def add_selected_field(entry: str) -> str:
     return entry
 
 
+def bibtex_key(entry: str) -> str | None:
+    match = re.match(r"@\w+\s*\{\s*([^,\s]+)\s*,", entry)
+    if match:
+        return match.group(1)
+    return None
+
+
+def bibtex_field(entry: str, field: str) -> str | None:
+    match = re.search(rf"(?im)^\s*{re.escape(field)}\s*=\s*(.+?)\s*,?\s*$", entry)
+    if not match:
+        return None
+    value = re.sub(r"\s+", " ", match.group(1)).strip()
+    value = value.rstrip(",").strip()
+    while len(value) >= 2 and (
+        (value[0] == "{" and value[-1] == "}")
+        or (value[0] == '"' and value[-1] == '"')
+    ):
+        value = value[1:-1].strip()
+    return value
+
+
+def bibtex_year(entry: str) -> int:
+    value = bibtex_field(entry, "year")
+    if value and value.isdigit():
+        return int(value)
+    return 0
+
+
+def bibtex_month(entry: str) -> int:
+    value = (bibtex_field(entry, "month") or "").lower()
+    return MONTHS.get(value, 1)
+
+
+def is_author_paper(entry: str) -> bool:
+    authors = bibtex_field(entry, "author") or ""
+    first_author = authors.split(" and ", 1)[0]
+    return any(pattern.search(first_author) for pattern in AUTHOR_PATTERNS)
+
+
+def auto_selected_keys(new_bibtex: str, limit: int) -> set[str]:
+    if limit <= 0:
+        return set()
+
+    entries = []
+    for chunk in iter_bibtex_entries(new_bibtex):
+        key = bibtex_key(chunk)
+        if key and is_author_paper(chunk):
+            entries.append((bibtex_year(chunk), key))
+
+    entries.sort(reverse=True)
+    return {key for _, key in entries[:limit]}
+
+
 def preserve_selected_flags(new_bibtex: str, selected_keys: set[str]) -> str:
     parts: list[str] = []
     for chunk in iter_bibtex_entries(new_bibtex):
-        key_match = re.match(r"@\w+\s*\{\s*([^,\s]+)\s*,", chunk)
-        if key_match and key_match.group(1) in selected_keys:
+        key = bibtex_key(chunk)
+        if key and key in selected_keys:
             chunk = add_selected_field(chunk)
         parts.append(chunk)
     return "".join(parts)
+
+
+def clean_title(title: str) -> str:
+    title = title.strip("{}")
+    replacements = {
+        r"{\ensuremath{\sim}}": "~",
+        r"\textasciitilde": "~",
+        r"{\textendash}": "--",
+        r"$zrsim10$": "z~10",
+    }
+    for old, new in replacements.items():
+        title = title.replace(old, new)
+    return re.sub(r"\s+", " ", title).strip()
+
+
+def news_items_from_bibtex(bibtex: str, limit: int) -> list[tuple[str, str, str]]:
+    if limit <= 0:
+        return []
+
+    items: list[tuple[int, int, str, str, str]] = []
+    for chunk in iter_bibtex_entries(bibtex):
+        key = bibtex_key(chunk)
+        year = bibtex_year(chunk)
+        month = bibtex_month(chunk)
+        title = bibtex_field(chunk, "title")
+        journal = bibtex_field(chunk, "journal") or "ADS"
+        if key and year and title:
+            items.append((year, month, key, clean_title(title), journal))
+
+    items.sort(reverse=True)
+    return [(f"{year}-{month:02d}-01", key, title, journal) for year, month, key, title, journal in items[:limit]]
+
+
+def write_publication_news(news_dir: Path, bibtex: str, limit: int) -> None:
+    news_dir.mkdir(parents=True, exist_ok=True)
+
+    for path in news_dir.glob("ads-publication-*.md"):
+        path.unlink()
+
+    for date, key, title, journal in news_items_from_bibtex(bibtex, limit):
+        safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "-", key)
+        path = news_dir / f"ads-publication-{safe_key}.md"
+        path.write_text(
+            "\n".join(
+                [
+                    "---",
+                    "layout: post",
+                    f"date: {date} 00:00:00-0000",
+                    "inline: true",
+                    "related_posts: false",
+                    "---",
+                    "",
+                    f"New publication added: [{title}](/publications/) ({journal}).",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
 
 
 def normalize_ads_bibtex(text: str) -> str:
@@ -166,6 +309,24 @@ def parse_args() -> argparse.Namespace:
         default=[],
         help="Additional BibTeX keys/bibcodes to mark as selected.",
     )
+    parser.add_argument(
+        "--auto-selected",
+        type=int,
+        default=5,
+        help="Automatically mark this many newest first-author papers as selected. Use 0 to disable.",
+    )
+    parser.add_argument(
+        "--news-dir",
+        type=Path,
+        default=DEFAULT_NEWS_DIR,
+        help=f"Directory for generated ADS news files. Default: {DEFAULT_NEWS_DIR}",
+    )
+    parser.add_argument(
+        "--news-limit",
+        type=int,
+        default=3,
+        help="Generate this many homepage news items from newest ADS publications. Use 0 to disable.",
+    )
     return parser.parse_args()
 
 
@@ -176,10 +337,12 @@ def main() -> int:
 
     bibtex = fetch_ads_bibtex(args.library_id)
     bibtex = normalize_ads_bibtex(bibtex)
+    selected_keys.update(auto_selected_keys(bibtex, args.auto_selected))
     bibtex = preserve_selected_flags(bibtex, selected_keys)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(FRONT_MATTER + bibtex, encoding="utf-8")
+    write_publication_news(args.news_dir, bibtex, args.news_limit)
     print(f"Updated {args.output} from ADS library {args.library_id}.")
     return 0
 

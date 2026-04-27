@@ -29,4 +29,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update publications from ADS"
-          file_pattern: _bibliography/papers.bib
+          file_pattern: "_bibliography/papers.bib _news/ads-publication-*.md"
