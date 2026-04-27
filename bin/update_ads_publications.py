@@ -4,14 +4,20 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import re
 import sys
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 
 DEFAULT_LIBRARY_ID = "VS5BWzVyQMOzCiWsCB0gAw"
 DEFAULT_OUTPUT = Path("_bibliography/papers.bib")
 FRONT_MATTER = "---\n---\n\n"
+ADS_API_BASE_URL = "https://api.adsabs.harvard.edu/v1"
 
 
 def strip_front_matter(text: str) -> str:
@@ -91,17 +97,52 @@ def normalize_ads_bibtex(text: str) -> str:
     return text + "\n"
 
 
-def fetch_ads_bibtex(library_id: str) -> str:
-    try:
-        from ads import Library
-        import ads.services.export as export
-    except ImportError as exc:
-        raise SystemExit(
-            "Missing Python package 'ads'. Install it with: python -m pip install ads"
-        ) from exc
+def ads_request(url: str, token: str, payload: dict | None = None) -> dict:
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+    data = None
+    if payload is not None:
+        data = json.dumps(payload).encode("utf-8")
 
-    library = Library.get(id=library_id)
-    return export.bibtex(library)
+    request = Request(url, data=data, headers=headers, method="POST" if payload is not None else "GET")
+    try:
+        with urlopen(request, timeout=60) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="replace")
+        raise SystemExit(f"ADS API request failed with HTTP {exc.code}: {body}") from exc
+    except URLError as exc:
+        raise SystemExit(f"ADS API request failed: {exc.reason}") from exc
+
+
+def fetch_library_bibcodes(library_id: str, token: str, rows: int = 2000) -> list[str]:
+    query = urlencode({"raw": "true", "rows": rows})
+    url = f"{ADS_API_BASE_URL}/biblib/libraries/{library_id}?{query}"
+    data = ads_request(url, token)
+    bibcodes = data.get("documents") or data.get("bibcode") or []
+    if not bibcodes:
+        raise SystemExit(f"No bibcodes found in ADS library {library_id}.")
+    return list(bibcodes)
+
+
+def fetch_ads_bibtex(library_id: str) -> str:
+    token = os.environ.get("ADS_DEV_KEY") or os.environ.get("ADS_API_TOKEN")
+    if not token:
+        raise SystemExit("Missing ADS token. Set ADS_DEV_KEY or ADS_API_TOKEN.")
+
+    bibcodes = fetch_library_bibcodes(library_id, token)
+    payload = {
+        "bibcode": bibcodes,
+        "sort": "date desc, bibcode desc",
+        "journalformat": 3,
+    }
+    data = ads_request(f"{ADS_API_BASE_URL}/export/bibtex", token, payload=payload)
+    exported = data.get("export")
+    if not exported:
+        raise SystemExit(f"ADS BibTeX export returned no content: {data}")
+    return exported
 
 
 def parse_args() -> argparse.Namespace:

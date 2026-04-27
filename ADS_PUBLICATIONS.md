@@ -14,7 +14,7 @@ Add a repository secret named `ADS_API_TOKEN`:
 2. Go to `Secrets and variables` -> `Actions`.
 3. Add `ADS_API_TOKEN` with your ADS API token.
 
-The workflow can also be run manually from the GitHub Actions tab.
+The workflow can also be run manually from the GitHub Actions tab. The script calls the ADS HTTP API directly, so it does not need the third-party `ads` Python package.
 
 ## Selected papers
 
