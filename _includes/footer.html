@@ -1,62 +1,28 @@
 {% include base_path %}
 
-{% if site.author.github or site.author.bitbucket or site.atom_feed.hide != true %}
 <div class="page__footer-follow">
   <ul class="social-icons">
-    {% if site.data.ui-text[site.locale].follow_label %}
-      <li><strong>{{ site.data.ui-text[site.locale].follow_label }}</strong></li>
+    <li><strong>{{ site.name | default: site.title }}</strong></li>
+    {% if site.author.email %}
+      <li><a href="mailto:{{ site.author.email }}"><i class="fas fa-envelope" aria-hidden="true"></i> Email</a></li>
+    {% endif %}
+    {% if site.author.googlescholar %}
+      <li><a href="{{ site.author.googlescholar }}"><i class="ai ai-google-scholar" aria-hidden="true"></i> Scholar</a></li>
+    {% endif %}
+    {% if site.author.orcid %}
+      <li><a href="{{ site.author.orcid }}"><i class="ai ai-orcid" aria-hidden="true"></i> ORCID</a></li>
     {% endif %}
     {% if site.author.github %}
-      <li><a href="http://github.com/{{ site.author.github }}"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
-    {% endif %}
-    {% if site.author.bitbucket %}
-      <li><a href="http://bitbucket.org/{{ site.author.bitbucket }}"><i class="fab fa-bitbucket" aria-hidden="true"></i> Bitbucket</a></li>
+      <li><a href="https://github.com/{{ site.author.github }}"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
     {% endif %}
     {% if site.atom_feed.hide != true %}
-    <li><a href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ base_path }}/feed.xml{% endif %}"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].feed_label | default: "Feed" }}</a></li>
+      <li><a href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ base_path }}/feed.xml{% endif %}"><i class="fa fa-rss-square" aria-hidden="true"></i> Feed</a></li>
     {% endif %}
   </ul>
 </div>
-{% endif %}
 
 <div class="page__footer-copyright">
-  &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}, {{ site.data.ui-text[site.locale].powered_by | default: "Powered by" }} <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
-  Site last updated {{ "now" | date: '%Y-%m-%d' %}}
+  &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}.
+  Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.
+  Last updated {{ "now" | date: '%Y-%m-%d' }}.
 </div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span id="sitetime"></span> <!--显示建站时间的地方放置此代码 可以加上其他代HTML代码加粗颜色等-->
-<script language=javascript>
-function siteTime(){
-    window.setTimeout("siteTime()", 1000);
-    var seconds = 1000;
-    var minutes = seconds * 60;
-    var hours = minutes * 60;
-    var days = hours * 24;
-    var years = days * 365;
-    var today = new Date();
-    var todayYear = today.getFullYear();
-    var todayMonth = today.getMonth()+1;
-    var todayDate = today.getDate();
-    var todayHour = today.getHours();
-    var todayMinute = today.getMinutes();
-    var todaySecond = today.getSeconds();
-    var t1 = Date.UTC(2023,6,24,20,00,00);  //此处填写建站时间 依次为 年,月,日,时,分,秒注意格式 半角,
-    var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
-    var diff = t2-t1;
-    var diffYears = Math.floor(diff/years);
-    var diffDays = Math.floor((diff/days)-diffYears*365);
-    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
-    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
-    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
-    document.getElementById("sitetime").innerHTML="🕓ThreeStones's Blog already run "+diffYears+" years "+diffDays+" days "+diffHours+" hours "+diffMinutes+" mins "+diffSeconds+" s";
-    }
-    siteTime();
-</script>
-<br />
-<span id="busuanzi_container_site_uv">
-👤Total Visitors <span id="busuanzi_value_site_uv"></span> |
-</span>
-<span id="busuanzi_container_site_pv">
-👁️Total Views <span id="busuanzi_value_site_pv"></span>
-</span>
