@@ -24,6 +24,7 @@ The homepage has two extra rules:
 
 - `selected publications` only shows BibTeX entries with `selected = {true}`. The update script preserves existing selected flags and automatically marks the five newest first-author papers as selected.
 - `news` comes from `_news/`. The update script generates three `ads-publication-*.md` news items from the newest ADS publications.
+- Citation badges are populated from the ADS `citation_count` field and displayed on both the publications page and selected publications on the homepage.
 
 You can tune these defaults in `.github/workflows/update-publications.yml` by passing options to `bin/update_ads_publications.py`, for example:
 

@@ -279,8 +279,27 @@
       {% if entry.inspirehep_id %}
         {% assign entry_has_inspirehep_badge = true %}
       {% endif %}
-      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge or entry_has_inspirehep_badge %}
+      {% assign entry_has_ads_citations_badge = false %}
+      {% if entry.ads_citations %}
+        {% assign entry_has_ads_citations_badge = true %}
+      {% endif %}
+      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge or entry_has_inspirehep_badge or entry_has_ads_citations_badge %}
         <div class="badges">
+          {% if entry_has_ads_citations_badge %}
+            {% if entry.adsurl %}
+              <a href="{{ entry.adsurl }}" aria-label="ADS citation count" role="button">
+                <img
+                  src="https://img.shields.io/badge/ADS citations-{{ entry.ads_citations }}-1f77b4?labelColor=beige"
+                  alt="{{ entry.ads_citations }} ADS citations"
+                >
+              </a>
+            {% else %}
+              <img
+                src="https://img.shields.io/badge/ADS citations-{{ entry.ads_citations }}-1f77b4?labelColor=beige"
+                alt="{{ entry.ads_citations }} ADS citations"
+              >
+            {% endif %}
+          {% endif %}
           {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
             <span
               class="altmetric-embed"

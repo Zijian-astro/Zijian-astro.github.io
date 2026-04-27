@@ -105,6 +105,23 @@ def add_selected_field(entry: str) -> str:
     return entry
 
 
+def set_bibtex_field(entry: str, field: str, value: str) -> str:
+    field_pattern = re.compile(rf"(?im)^(\s*{re.escape(field)}\s*=\s*).+?(\s*,?\s*)$")
+    if field_pattern.search(entry):
+        return field_pattern.sub(rf"\g<1>{{{value}}},", entry)
+
+    adsurl_match = re.search(r"(?m)^(\s*adsurl\s*=\s*\{[^\n]+\},?)\s*$", entry)
+    if adsurl_match:
+        insert_at = adsurl_match.start()
+        return entry[:insert_at] + f"       {field} = {{{value}}},\n" + entry[insert_at:]
+
+    closing = entry.rfind("\n}")
+    if closing != -1:
+        return entry[:closing] + f"\n       {field} = {{{value}}}," + entry[closing:]
+
+    return entry
+
+
 def bibtex_key(entry: str) -> str | None:
     match = re.match(r"@\w+\s*\{\s*([^,\s]+)\s*,", entry)
     if match:
@@ -164,6 +181,16 @@ def preserve_selected_flags(new_bibtex: str, selected_keys: set[str]) -> str:
         key = bibtex_key(chunk)
         if key and key in selected_keys:
             chunk = add_selected_field(chunk)
+        parts.append(chunk)
+    return "".join(parts)
+
+
+def add_ads_citation_counts(new_bibtex: str, citation_counts: dict[str, int]) -> str:
+    parts: list[str] = []
+    for chunk in iter_bibtex_entries(new_bibtex):
+        key = bibtex_key(chunk)
+        if key and key in citation_counts:
+            chunk = set_bibtex_field(chunk, "ads_citations", str(citation_counts[key]))
         parts.append(chunk)
     return "".join(parts)
 
@@ -270,6 +297,23 @@ def fetch_library_bibcodes(library_id: str, token: str, rows: int = 2000) -> lis
     return list(bibcodes)
 
 
+def fetch_ads_citation_counts(bibcodes: list[str], token: str) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for bibcode in bibcodes:
+        query = urlencode(
+            {
+                "q": f'bibcode:"{bibcode}"',
+                "fl": "bibcode,citation_count",
+                "rows": 1,
+            }
+        )
+        data = ads_request(f"{ADS_API_BASE_URL}/search/query?{query}", token)
+        docs = data.get("response", {}).get("docs", [])
+        if docs:
+            counts[bibcode] = int(docs[0].get("citation_count") or 0)
+    return counts
+
+
 def fetch_ads_bibtex(library_id: str) -> str:
     token = os.environ.get("ADS_DEV_KEY") or os.environ.get("ADS_API_TOKEN")
     if not token:
@@ -285,7 +329,8 @@ def fetch_ads_bibtex(library_id: str) -> str:
     exported = data.get("export")
     if not exported:
         raise SystemExit(f"ADS BibTeX export returned no content: {data}")
-    return exported
+    citation_counts = fetch_ads_citation_counts(bibcodes, token)
+    return add_ads_citation_counts(exported, citation_counts)
 
 
 def parse_args() -> argparse.Namespace:
