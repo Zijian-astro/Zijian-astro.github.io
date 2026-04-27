@@ -1,0 +1,35 @@
+name: Update ADS publications
+
+on:
+  schedule:
+    - cron: "30 0 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-publications:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install ADS client
+        run: python -m pip install ads
+
+      - name: Update BibTeX from ADS library
+        env:
+          ADS_DEV_KEY: ${{ secrets.ADS_API_TOKEN }}
+        run: python bin/update_ads_publications.py
+
+      - name: Commit updated publications
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update publications from ADS"
+          file_pattern: _bibliography/papers.bib
