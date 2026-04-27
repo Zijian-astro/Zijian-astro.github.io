@@ -1,0 +1,11 @@
+"ApJ":
+  url: https://iopscience.iop.org/journal/0004-637X
+  color: "#2f6f8f"
+
+"RAA":
+  url: https://iopscience.iop.org/journal/1674-4527
+  color: "#8a5a9e"
+
+"arXiv":
+  url: https://arxiv.org/
+  color: "#b31b1b"

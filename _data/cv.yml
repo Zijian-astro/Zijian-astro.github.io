@@ -1,0 +1,91 @@
+cv:
+  name: Zijian Zhang
+  label: PhD Student in Astronomy and Astrophysics
+  email: zjz.kiaa@stu.pku.edu.cn
+  location: Beijing, China
+  image: /assets/img/profile.png
+  website: https://zijian-astro.github.io
+  summary: >
+    I am a PhD student at the Kavli Institute for Astronomy and Astrophysics,
+    Peking University. My research focuses on AGNs and their host galaxies,
+    high-redshift AGNs/galaxies, and machine-learning/data-driven astrophysics.
+
+  social_networks:
+    - network: GitHub
+      username: Zijian-astro
+    - network: ORCID
+      username: 0000-0002-2420-5022
+
+  sections:
+    Education:
+      - institution: Peking University
+        location: Beijing, China
+        url: https://www.pku.edu.cn/
+        area: Kavli Institute for Astronomy and Astrophysics
+        studyType: PhD
+        start_date: 2023
+        end_date: 2028 expected
+        highlights:
+          - Advisor: Prof. Linhua Jiang
+
+      - institution: Nanjing University
+        location: Nanjing, China
+        area: School of Astronomy and Space Science
+        studyType: B.S.
+        start_date: 2019
+        end_date: 2023
+
+    Research Interests:
+      - name: Active Galactic Nuclei
+        keywords: "multi-wavelength AGN properties, host galaxies, X-ray variability"
+      - name: High-redshift Universe
+        keywords: "high-redshift AGNs, high-redshift galaxies, little red dots"
+      - name: Data-driven Astrophysics
+        keywords: "machine learning, statistical methods, astronomical surveys"
+
+    Publications:
+      - title: Analysis of Multi-epoch JWST Images of ~300 Little Red Dots
+        authors:
+          - Zijian Zhang
+          - Linhua Jiang
+          - Weiyang Liu
+          - Luis C. Ho
+        publisher: The Astrophysical Journal
+        releaseDate: 2025-05-01
+        url: https://ui.adsabs.harvard.edu/abs/2025ApJ...985..119Z
+        summary: Tentative detection of variability in a minority of little red dot sources.
+
+      - title: On the Extremely X-Ray Variable Active Galactic Nuclei in the XMM-LSS Field
+        authors:
+          - Zijian Zhang
+          - Bin Luo
+          - Linhua Jiang
+          - W. N. Brandt
+        publisher: The Astrophysical Journal
+        releaseDate: 2025-04-01
+        url: https://ui.adsabs.harvard.edu/abs/2025ApJ...983...36Z
+
+      - title: GRB 220408B, A Three-episode Burst from a Precessing Jet
+        authors:
+          - Zijian Zhang
+          - Yi-Han Iris Yin
+          - Chenyu Wang
+        publisher: Research in Astronomy and Astrophysics
+        releaseDate: 2023-11-01
+        url: https://ui.adsabs.harvard.edu/abs/2023RAA....23k5023Z
+
+      - title: XMM-Newton Observations of Two Archival X-Ray Weak Type 1 Quasars
+        authors:
+          - Zijian Zhang
+          - Bin Luo
+          - W. N. Brandt
+        publisher: The Astrophysical Journal
+        releaseDate: 2023-09-01
+        url: https://ui.adsabs.harvard.edu/abs/2023ApJ...954..159Z
+
+    Talks:
+      - bullet: "2024: Investigation of the variability of LRD using JWST data, 2nd AGN Feedback Symposium, Fudan University, Shanghai."
+      - bullet: "2024: Investigation of the variability of LRD using JWST data, EREBUS/JWST workshop, Hilo, Hawaii."
+      - bullet: "2024: Exploring the Cosmos with DESI: BAO and RSD measurements, CSST Discussion, Beijing."
+      - bullet: "2023: 天文统计学与MCMC, Beacon, Nanjing."
+      - bullet: "2022: 伽马暴数据分析, 2022天格计划夏令营, online."
