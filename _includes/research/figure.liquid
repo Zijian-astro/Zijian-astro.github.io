@@ -1,0 +1,18 @@
+<figure class="research-figure">
+  <div class="research-scene" data-scene="{{ include.theme.diagram }}">
+    <div class="scene-header">
+      <span>Field note / {{ include.theme.number }}</span><span class="scene-kind">Synthetic</span>
+    </div>
+    {% case include.theme.diagram %}
+      {% when 'temporal' -%}
+        {%- include research/temporal.liquid %}
+      {% when 'population' -%}
+        {%- include research/population.liquid %}
+      {% when 'slitless' -%}
+        {%- include research/slitless.liquid %}
+      {% when 'ifu' -%}
+        {%- include research/ifu.liquid %}
+    {% endcase %}
+  </div>
+  <figcaption>{{ include.theme.caption }}</figcaption>
+</figure>

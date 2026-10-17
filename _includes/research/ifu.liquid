@@ -1,0 +1,638 @@
+<div class="scene-controls scene-tabs" role="group" aria-label="Steps from the instrumental bias to a dynamical mass" hidden>
+  <button type="button" data-ifu-step-button="1" aria-pressed="true">Slice bias</button>
+  <button type="button" data-ifu-step-button="2" aria-pressed="false">Correction</button>
+  <button type="button" data-ifu-step-button="3" aria-pressed="false">Two PAs</button>
+  <button type="button" data-ifu-step-button="4" aria-pressed="false">Dynamical mass</button>
+</div>
+<svg class="science-svg ifu-svg" viewBox="0 0 520 400" role="img" aria-labelledby="ifu-title ifu-desc">
+  <title id="ifu-title">From an instrumental velocity gradient to a dynamical mass</title>
+  <desc id="ifu-desc">
+    Four synthetic steps. Slice bias: a compact source seen through the IFU image slicer; light falling off-centre within each slice shifts that slice's spectrum, so an apparent velocity gradient appears although no gas motion is put in. Correction: each slice's offset is predicted from the light distribution alone and the detector samples are shifted back before the cube is built; an imperfect light model leaves a residual. Two PAs: the instrumental pattern turns with the slicer while real motion stays on the sky, so the difference between two position angles isolates the instrumental part. Dynamical mass: a corrected rotation velocity and radius give the total mass inside that radius; because the mass scales with velocity squared, an uncorrected gradient inflates it.
+  </desc>
+  <defs>
+    <radialGradient id="ifu-psf"><stop stop-color="#fff2df"/><stop offset=".3" stop-color="#f1b896" stop-opacity=".9"/><stop offset="1" stop-color="#d9775f" stop-opacity="0"/></radialGradient>
+    <radialGradient id="ifu-core"><stop stop-color="#fff2df"/><stop offset=".4" stop-color="#f1b896" stop-opacity=".7"/><stop offset="1" stop-color="#d9775f" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ifu-legend"><stop stop-color="#7da4c5"/><stop offset=".5" stop-color="#b5b4b0"/><stop offset="1" stop-color="#dd9b89"/></linearGradient>
+    <linearGradient id="ifu-disk-gradient"><stop stop-color="#7da4c5" stop-opacity=".7"/><stop offset=".5" stop-color="#b5b4b0" stop-opacity=".35"/><stop offset="1" stop-color="#dd9b89" stop-opacity=".7"/></linearGradient>
+    <clipPath id="ifu-slicer-clip"><rect x="30" y="60" width="180" height="180"/></clipPath>
+    <clipPath id="ifu-disk-clip"><circle cx="150" cy="168" r="84"/></clipPath>
+    <clipPath id="ifu-mini-1"><circle cx="420" cy="84" r="32"/></clipPath>
+    <clipPath id="ifu-mini-2"><circle cx="420" cy="180" r="32"/></clipPath>
+    <clipPath id="ifu-mini-3"><circle cx="420" cy="296" r="32"/></clipPath>
+  </defs>
+  <g data-ifu-layer="slices">
+    <text x="30" y="48" class="svg-note">Through the slicer</text>
+    <text x="262" y="48" class="svg-note">Each slice's spectrum</text>
+    <rect x="30" y="60" width="180" height="36" fill="#1d3142"/>
+    <rect x="30" y="96" width="180" height="36" fill="#172a3a"/>
+    <rect x="30" y="132" width="180" height="36" fill="#1d3142"/>
+    <rect x="30" y="168" width="180" height="36" fill="#172a3a"/>
+    <rect x="30" y="204" width="180" height="36" fill="#1d3142"/>
+    <path d="M30 60H210M30 96H210M30 132H210M30 168H210M30 204H210M30 240H210" stroke="#5c6f80" stroke-opacity=".8"/>
+    <path d="M30 78H210M30 114H210M30 150H210M30 186H210M30 222H210" stroke="#8c9cac" stroke-opacity=".35" stroke-dasharray="2 5"/>
+    <circle data-ifu-psf cx="120" cy="150" r="54" fill="url(#ifu-psf)" clip-path="url(#ifu-slicer-clip)"/>
+    <g data-ifu-slice="0">
+      <path data-ifu-offset d="M172 78V78" stroke="#efae91" stroke-width="2"/>
+      <circle data-ifu-model cx="172" cy="78" r="4.6" fill="none" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+      <circle data-ifu-centroid cx="172" cy="78" r="3.6" fill="#fff0dc" stroke="#112130" stroke-width="1.2"/>
+      <path d="M262 78H490" stroke="#7790a4" stroke-opacity=".45"/>
+      <path data-ifu-bump d="M262 78H490" fill="none" stroke="#efae91" stroke-width="2.2" stroke-linejoin="round"/>
+      <path data-ifu-fix d="M376 78H376" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+    </g>
+    <g data-ifu-slice="1">
+      <path data-ifu-offset d="M172 114V114" stroke="#efae91" stroke-width="2"/>
+      <circle data-ifu-model cx="172" cy="114" r="4.6" fill="none" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+      <circle data-ifu-centroid cx="172" cy="114" r="3.6" fill="#fff0dc" stroke="#112130" stroke-width="1.2"/>
+      <path d="M262 114H490" stroke="#7790a4" stroke-opacity=".45"/>
+      <path data-ifu-bump d="M262 114H490" fill="none" stroke="#efae91" stroke-width="2.2" stroke-linejoin="round"/>
+      <path data-ifu-fix d="M376 114H376" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+    </g>
+    <g data-ifu-slice="2">
+      <path data-ifu-offset d="M172 150V150" stroke="#efae91" stroke-width="2"/>
+      <circle data-ifu-model cx="172" cy="150" r="4.6" fill="none" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+      <circle data-ifu-centroid cx="172" cy="150" r="3.6" fill="#fff0dc" stroke="#112130" stroke-width="1.2"/>
+      <path d="M262 150H490" stroke="#7790a4" stroke-opacity=".45"/>
+      <path data-ifu-bump d="M262 150H490" fill="none" stroke="#efae91" stroke-width="2.2" stroke-linejoin="round"/>
+      <path data-ifu-fix d="M376 150H376" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+    </g>
+    <g data-ifu-slice="3">
+      <path data-ifu-offset d="M172 186V186" stroke="#efae91" stroke-width="2"/>
+      <circle data-ifu-model cx="172" cy="186" r="4.6" fill="none" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+      <circle data-ifu-centroid cx="172" cy="186" r="3.6" fill="#fff0dc" stroke="#112130" stroke-width="1.2"/>
+      <path d="M262 186H490" stroke="#7790a4" stroke-opacity=".45"/>
+      <path data-ifu-bump d="M262 186H490" fill="none" stroke="#efae91" stroke-width="2.2" stroke-linejoin="round"/>
+      <path data-ifu-fix d="M376 186H376" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+    </g>
+    <g data-ifu-slice="4">
+      <path data-ifu-offset d="M172 222V222" stroke="#efae91" stroke-width="2"/>
+      <circle data-ifu-model cx="172" cy="222" r="4.6" fill="none" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+      <circle data-ifu-centroid cx="172" cy="222" r="3.6" fill="#fff0dc" stroke="#112130" stroke-width="1.2"/>
+      <path d="M262 222H490" stroke="#7790a4" stroke-opacity=".45"/>
+      <path data-ifu-bump d="M262 222H490" fill="none" stroke="#efae91" stroke-width="2.2" stroke-linejoin="round"/>
+      <path data-ifu-fix d="M376 222H376" stroke="#a9c8e6" stroke-width="1.6" opacity="0"/>
+    </g>
+    <path d="M376 58v186" stroke="#d6dacf" stroke-opacity=".45" stroke-dasharray="3 5"/>
+    <path data-ifu-tilt d="" fill="none" stroke="#f3d3bd" stroke-opacity=".8" stroke-dasharray="4 4"/>
+    <text x="376" y="258" text-anchor="middle" class="svg-note">true λ</text>
+    <text x="490" y="258" text-anchor="end" class="svg-note">λ →</text>
+    <text data-ifu-step2-only x="30" y="258" class="svg-note" opacity="0">○ predicted from light</text>
+    <text x="30" y="282" class="svg-note" data-ifu-map-label>velocity map</text>
+    <g data-ifu-map="before" transform="translate(30 290)">
+      <rect data-ifu-cell="0" x="0" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="1" x="25" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="2" x="50" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="3" x="75" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="4" x="100" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="5" x="125" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="6" x="150" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="7" x="0" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="8" x="25" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="9" x="50" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="10" x="75" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="11" x="100" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="12" x="125" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="13" x="150" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="14" x="0" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="15" x="25" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="16" x="50" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="17" x="75" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="18" x="100" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="19" x="125" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="20" x="150" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="21" x="0" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="22" x="25" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="23" x="50" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="24" x="75" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="25" x="100" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="26" x="125" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="27" x="150" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="28" x="0" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="29" x="25" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="30" x="50" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="31" x="75" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="32" x="100" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="33" x="125" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="34" x="150" y="64" width="24" height="15" fill="#b5b4b0"/>
+    </g>
+    <text x="262" y="282" class="svg-note" data-ifu-step2-only opacity="0">after correction</text>
+    <g data-ifu-map="after" transform="translate(262 290)" data-ifu-step2-only opacity="0">
+      <rect data-ifu-cell="0" x="0" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="1" x="25" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="2" x="50" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="3" x="75" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="4" x="100" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="5" x="125" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="6" x="150" y="0" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="7" x="0" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="8" x="25" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="9" x="50" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="10" x="75" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="11" x="100" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="12" x="125" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="13" x="150" y="16" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="14" x="0" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="15" x="25" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="16" x="50" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="17" x="75" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="18" x="100" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="19" x="125" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="20" x="150" y="32" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="21" x="0" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="22" x="25" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="23" x="50" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="24" x="75" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="25" x="100" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="26" x="125" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="27" x="150" y="48" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="28" x="0" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="29" x="25" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="30" x="50" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="31" x="75" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="32" x="100" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="33" x="125" y="64" width="24" height="15" fill="#b5b4b0"/>
+      <rect data-ifu-cell="34" x="150" y="64" width="24" height="15" fill="#b5b4b0"/>
+    </g>
+    <g data-ifu-step1-only>
+      <text x="262" y="318" class="svg-label">No gas motion</text>
+      <text x="262" y="340" class="svg-note">the gradient comes from</text>
+      <text x="262" y="358" class="svg-note">the slicer alone</text>
+    </g>
+    <text data-ifu-step2-only x="30" y="22" class="svg-note" opacity="0">applied before drizzle builds the cube</text>
+    <text x="30" y="388" class="svg-note">approaching</text>
+    <rect x="150" y="381" width="80" height="6" fill="url(#ifu-legend)"/>
+    <text x="238" y="388" class="svg-note">receding</text>
+  </g>
+  <g data-ifu-layer="pa" hidden>
+    <text data-ifu-pa-label x="150" y="70" text-anchor="middle" class="svg-label">PA 1</text>
+    <g clip-path="url(#ifu-disk-clip)">
+      <rect data-ifu-disk-cell="0" x="65.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="1" x="78.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="2" x="91.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="3" x="104.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="4" x="117.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="5" x="130.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="6" x="143.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="7" x="156.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="8" x="169.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="9" x="182.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="10" x="195.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="11" x="208.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="12" x="221.5" y="83.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="13" x="65.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="14" x="78.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="15" x="91.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="16" x="104.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="17" x="117.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="18" x="130.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="19" x="143.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="20" x="156.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="21" x="169.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="22" x="182.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="23" x="195.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="24" x="208.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="25" x="221.5" y="96.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="26" x="65.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="27" x="78.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="28" x="91.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="29" x="104.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="30" x="117.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="31" x="130.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="32" x="143.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="33" x="156.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="34" x="169.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="35" x="182.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="36" x="195.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="37" x="208.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="38" x="221.5" y="109.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="39" x="65.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="40" x="78.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="41" x="91.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="42" x="104.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="43" x="117.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="44" x="130.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="45" x="143.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="46" x="156.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="47" x="169.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="48" x="182.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="49" x="195.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="50" x="208.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="51" x="221.5" y="122.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="52" x="65.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="53" x="78.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="54" x="91.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="55" x="104.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="56" x="117.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="57" x="130.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="58" x="143.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="59" x="156.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="60" x="169.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="61" x="182.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="62" x="195.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="63" x="208.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="64" x="221.5" y="135.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="65" x="65.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="66" x="78.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="67" x="91.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="68" x="104.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="69" x="117.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="70" x="130.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="71" x="143.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="72" x="156.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="73" x="169.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="74" x="182.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="75" x="195.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="76" x="208.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="77" x="221.5" y="148.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="78" x="65.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="79" x="78.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="80" x="91.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="81" x="104.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="82" x="117.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="83" x="130.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="84" x="143.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="85" x="156.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="86" x="169.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="87" x="182.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="88" x="195.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="89" x="208.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="90" x="221.5" y="161.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="91" x="65.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="92" x="78.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="93" x="91.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="94" x="104.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="95" x="117.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="96" x="130.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="97" x="143.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="98" x="156.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="99" x="169.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="100" x="182.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="101" x="195.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="102" x="208.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="103" x="221.5" y="174.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="104" x="65.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="105" x="78.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="106" x="91.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="107" x="104.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="108" x="117.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="109" x="130.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="110" x="143.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="111" x="156.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="112" x="169.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="113" x="182.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="114" x="195.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="115" x="208.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="116" x="221.5" y="187.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="117" x="65.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="118" x="78.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="119" x="91.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="120" x="104.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="121" x="117.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="122" x="130.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="123" x="143.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="124" x="156.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="125" x="169.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="126" x="182.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="127" x="195.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="128" x="208.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="129" x="221.5" y="200.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="130" x="65.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="131" x="78.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="132" x="91.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="133" x="104.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="134" x="117.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="135" x="130.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="136" x="143.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="137" x="156.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="138" x="169.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="139" x="182.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="140" x="195.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="141" x="208.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="142" x="221.5" y="213.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="143" x="65.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="144" x="78.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="145" x="91.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="146" x="104.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="147" x="117.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="148" x="130.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="149" x="143.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="150" x="156.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="151" x="169.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="152" x="182.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="153" x="195.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="154" x="208.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="155" x="221.5" y="226.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="156" x="65.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="157" x="78.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="158" x="91.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="159" x="104.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="160" x="117.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="161" x="130.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="162" x="143.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="163" x="156.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="164" x="169.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="165" x="182.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="166" x="195.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="167" x="208.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <rect data-ifu-disk-cell="168" x="221.5" y="239.5" width="13.4" height="13.4" fill="#b5b4b0"/>
+      <g data-ifu-stripes transform="rotate(0 150 168)">
+        <path d="M50 88H250M50 102H250M50 116H250M50 130H250M50 144H250M50 158H250M50 172H250M50 186H250M50 200H250M50 214H250M50 228H250M50 242H250" stroke="#0e1b26" stroke-opacity=".55"/>
+      </g>
+    </g>
+    <circle cx="150" cy="168" r="84" fill="none" stroke="#8c9cac" stroke-opacity=".6"/>
+    <path d="M100 191 200 145M200 145l-11 0M200 145l-6 9" fill="none" stroke="#f4efe6" stroke-width="2.4" stroke-linecap="round"/>
+    <g data-ifu-inst-arrow transform="rotate(0 150 168)">
+      <path d="M166 110V226M166 226l-6-9M166 226l6-9" fill="none" stroke="#efae91" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <path d="M30 284h26M56 284l-7-4M56 284l-7 4" fill="none" stroke="#f4efe6" stroke-width="2"/>
+    <text x="64" y="289" class="svg-note">real motion: fixed on sky</text>
+    <path d="M30 308h26M56 308l-7-4M56 308l-7 4" fill="none" stroke="#efae91" stroke-width="2"/>
+    <text x="64" y="313" class="svg-note">instrumental: turns with slicer</text>
+    <text x="30" y="352" class="svg-note">approaching</text>
+    <rect x="150" y="345" width="80" height="6" fill="url(#ifu-legend)"/>
+    <text x="238" y="352" class="svg-note">receding</text>
+    <text x="420" y="44" text-anchor="middle" class="svg-note">PA 1</text>
+    <g data-ifu-mini="1" clip-path="url(#ifu-mini-1)">
+      <rect data-ifu-mini-cell="0" x="387.6" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="1" x="394.8" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="2" x="402.0" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="3" x="409.2" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="4" x="416.4" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="5" x="423.6" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="6" x="430.8" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="7" x="438.0" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="8" x="445.2" y="51.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="9" x="387.6" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="10" x="394.8" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="11" x="402.0" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="12" x="409.2" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="13" x="416.4" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="14" x="423.6" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="15" x="430.8" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="16" x="438.0" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="17" x="445.2" y="58.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="18" x="387.6" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="19" x="394.8" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="20" x="402.0" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="21" x="409.2" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="22" x="416.4" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="23" x="423.6" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="24" x="430.8" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="25" x="438.0" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="26" x="445.2" y="66.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="27" x="387.6" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="28" x="394.8" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="29" x="402.0" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="30" x="409.2" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="31" x="416.4" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="32" x="423.6" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="33" x="430.8" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="34" x="438.0" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="35" x="445.2" y="73.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="36" x="387.6" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="37" x="394.8" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="38" x="402.0" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="39" x="409.2" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="40" x="416.4" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="41" x="423.6" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="42" x="430.8" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="43" x="438.0" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="44" x="445.2" y="80.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="45" x="387.6" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="46" x="394.8" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="47" x="402.0" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="48" x="409.2" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="49" x="416.4" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="50" x="423.6" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="51" x="430.8" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="52" x="438.0" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="53" x="445.2" y="87.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="54" x="387.6" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="55" x="394.8" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="56" x="402.0" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="57" x="409.2" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="58" x="416.4" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="59" x="423.6" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="60" x="430.8" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="61" x="438.0" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="62" x="445.2" y="94.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="63" x="387.6" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="64" x="394.8" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="65" x="402.0" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="66" x="409.2" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="67" x="416.4" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="68" x="423.6" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="69" x="430.8" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="70" x="438.0" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="71" x="445.2" y="102.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="72" x="387.6" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="73" x="394.8" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="74" x="402.0" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="75" x="409.2" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="76" x="416.4" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="77" x="423.6" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="78" x="430.8" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="79" x="438.0" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="80" x="445.2" y="109.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+    </g>
+    <circle cx="420" cy="84" r="32" fill="none" stroke="#8c9cac" stroke-opacity=".6"/>
+    <text x="420" y="140" text-anchor="middle" class="svg-note">PA 2</text>
+    <g data-ifu-mini="2" clip-path="url(#ifu-mini-2)">
+      <rect data-ifu-mini-cell="0" x="387.6" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="1" x="394.8" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="2" x="402.0" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="3" x="409.2" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="4" x="416.4" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="5" x="423.6" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="6" x="430.8" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="7" x="438.0" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="8" x="445.2" y="147.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="9" x="387.6" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="10" x="394.8" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="11" x="402.0" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="12" x="409.2" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="13" x="416.4" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="14" x="423.6" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="15" x="430.8" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="16" x="438.0" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="17" x="445.2" y="154.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="18" x="387.6" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="19" x="394.8" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="20" x="402.0" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="21" x="409.2" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="22" x="416.4" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="23" x="423.6" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="24" x="430.8" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="25" x="438.0" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="26" x="445.2" y="162.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="27" x="387.6" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="28" x="394.8" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="29" x="402.0" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="30" x="409.2" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="31" x="416.4" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="32" x="423.6" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="33" x="430.8" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="34" x="438.0" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="35" x="445.2" y="169.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="36" x="387.6" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="37" x="394.8" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="38" x="402.0" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="39" x="409.2" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="40" x="416.4" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="41" x="423.6" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="42" x="430.8" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="43" x="438.0" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="44" x="445.2" y="176.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="45" x="387.6" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="46" x="394.8" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="47" x="402.0" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="48" x="409.2" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="49" x="416.4" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="50" x="423.6" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="51" x="430.8" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="52" x="438.0" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="53" x="445.2" y="183.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="54" x="387.6" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="55" x="394.8" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="56" x="402.0" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="57" x="409.2" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="58" x="416.4" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="59" x="423.6" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="60" x="430.8" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="61" x="438.0" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="62" x="445.2" y="190.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="63" x="387.6" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="64" x="394.8" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="65" x="402.0" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="66" x="409.2" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="67" x="416.4" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="68" x="423.6" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="69" x="430.8" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="70" x="438.0" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="71" x="445.2" y="198.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="72" x="387.6" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="73" x="394.8" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="74" x="402.0" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="75" x="409.2" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="76" x="416.4" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="77" x="423.6" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="78" x="430.8" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="79" x="438.0" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="80" x="445.2" y="205.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+    </g>
+    <circle cx="420" cy="180" r="32" fill="none" stroke="#8c9cac" stroke-opacity=".6"/>
+    <text x="420" y="256" text-anchor="middle" class="svg-note">PA 1 − PA 2</text>
+    <g data-ifu-mini="3" clip-path="url(#ifu-mini-3)">
+      <rect data-ifu-mini-cell="0" x="387.6" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="1" x="394.8" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="2" x="402.0" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="3" x="409.2" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="4" x="416.4" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="5" x="423.6" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="6" x="430.8" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="7" x="438.0" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="8" x="445.2" y="263.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="9" x="387.6" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="10" x="394.8" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="11" x="402.0" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="12" x="409.2" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="13" x="416.4" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="14" x="423.6" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="15" x="430.8" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="16" x="438.0" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="17" x="445.2" y="270.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="18" x="387.6" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="19" x="394.8" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="20" x="402.0" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="21" x="409.2" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="22" x="416.4" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="23" x="423.6" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="24" x="430.8" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="25" x="438.0" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="26" x="445.2" y="278.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="27" x="387.6" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="28" x="394.8" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="29" x="402.0" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="30" x="409.2" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="31" x="416.4" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="32" x="423.6" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="33" x="430.8" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="34" x="438.0" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="35" x="445.2" y="285.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="36" x="387.6" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="37" x="394.8" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="38" x="402.0" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="39" x="409.2" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="40" x="416.4" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="41" x="423.6" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="42" x="430.8" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="43" x="438.0" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="44" x="445.2" y="292.4" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="45" x="387.6" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="46" x="394.8" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="47" x="402.0" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="48" x="409.2" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="49" x="416.4" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="50" x="423.6" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="51" x="430.8" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="52" x="438.0" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="53" x="445.2" y="299.6" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="54" x="387.6" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="55" x="394.8" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="56" x="402.0" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="57" x="409.2" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="58" x="416.4" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="59" x="423.6" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="60" x="430.8" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="61" x="438.0" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="62" x="445.2" y="306.8" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="63" x="387.6" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="64" x="394.8" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="65" x="402.0" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="66" x="409.2" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="67" x="416.4" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="68" x="423.6" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="69" x="430.8" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="70" x="438.0" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="71" x="445.2" y="314.0" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="72" x="387.6" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="73" x="394.8" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="74" x="402.0" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="75" x="409.2" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="76" x="416.4" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="77" x="423.6" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="78" x="430.8" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="79" x="438.0" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+      <rect data-ifu-mini-cell="80" x="445.2" y="321.2" width="7.5" height="7.5" fill="#b5b4b0"/>
+    </g>
+    <circle cx="420" cy="296" r="32" fill="none" stroke="#8c9cac" stroke-opacity=".6"/>
+    <text x="420" y="348" text-anchor="middle" class="svg-note">instrumental part</text>
+  </g>
+  <g data-ifu-layer="mass" hidden>
+    <ellipse cx="126" cy="132" rx="96" ry="38" fill="url(#ifu-disk-gradient)"/>
+    <ellipse data-ifu-orbit cx="126" cy="132" rx="80" ry="31" fill="none" stroke="#f4efe6" stroke-opacity=".7" stroke-width="1.6" stroke-dasharray="4 9"/>
+    <circle cx="126" cy="132" r="22" fill="url(#ifu-core)"/>
+    <path d="M126 132H206" stroke="#f4efe6" stroke-opacity=".8" stroke-dasharray="2 3"/>
+    <text x="210" y="128" class="svg-note">R</text>
+    <text x="126" y="196" text-anchor="middle" class="svg-note">gas disk around an LRD</text>
+    <path d="M286 60V196H492" fill="none" stroke="#7790a4" stroke-opacity=".5"/>
+    <path d="M446 64V196" stroke="#d6dacf" stroke-opacity=".45" stroke-dasharray="3 5"/>
+    <text x="446" y="212" text-anchor="middle" class="svg-note">R</text>
+    <text x="280" y="70" text-anchor="end" class="svg-note">v</text>
+    <text x="492" y="212" text-anchor="end" class="svg-note">r →</text>
+    <path data-ifu-curve="apparent" d="" fill="none" stroke="#a9c8e6" stroke-width="2" stroke-dasharray="5 4"/>
+    <path data-ifu-curve="corrected" d="" fill="none" stroke="#efae91" stroke-width="2.6"/>
+    <text data-ifu-curve-label="apparent" x="492" y="62" text-anchor="end" class="svg-note">apparent</text>
+    <text data-ifu-curve-label="corrected" x="492" y="128" text-anchor="end" class="svg-note">corrected</text>
+    <text x="30" y="246" class="svg-label">M<tspan font-size="13" dy="4">dyn</tspan><tspan dy="-4"> ≈ v² R / G</tspan></text>
+    <rect data-ifu-bar="apparent" x="30" y="262" width="0" height="20" fill="#a9c8e6" fill-opacity=".55"/>
+    <text data-ifu-bar-label="apparent" x="36" y="277" class="svg-note">from apparent v</text>
+    <rect data-ifu-bar="corrected" x="30" y="292" width="0" height="20" fill="#efae91" fill-opacity=".8"/>
+    <text data-ifu-bar-label="corrected" x="36" y="307" class="svg-note">from corrected v</text>
+    <text x="30" y="336" class="svg-note">total mass inside R: black hole + stars + gas</text>
+    <text x="30" y="356" class="svg-note">1.35× too fast → 1.8× too massive</text>
+  </g>
+</svg>
+<p class="scene-description" data-ifu-description aria-live="polite">
+  No gas motion is put in. Light falling off-centre within each slice shifts that slice's wavelength, so a compact source shows an apparent gradient
+  across the slices.
+</p>

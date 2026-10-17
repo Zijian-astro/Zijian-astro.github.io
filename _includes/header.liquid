@@ -2,7 +2,11 @@
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
-      {% if page.permalink != '/' %}
+      {% if page.research_home %}
+        <a class="navbar-brand home-brand" href="{{ '/' | relative_url }}"
+          ><span class="red-point" aria-hidden="true"></span>Zijian Zhang <span lang="zh-CN">张子键</span></a
+        >
+      {% elsif page.permalink != '/' %}
         <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
           {% if site.title == 'blank' %}
             {% if site.first_name %}
@@ -55,6 +59,10 @@
               {% endif %}
             </a>
           </li>
+
+          {% if page.research_home %}
+            <li class="nav-item"><a class="nav-link" href="#research">research</a></li>
+          {% endif %}
 
           <!-- Other pages -->
           {% assign sorted_pages = site.pages | sort: 'nav_order' %}

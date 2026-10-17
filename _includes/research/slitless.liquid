@@ -1,0 +1,114 @@
+<div class="scene-controls scene-tabs" role="group" aria-label="Choose an example source" hidden>
+  <button type="button" data-slitless-case="compact" aria-pressed="true">Compact source</button>
+  <button type="button" data-slitless-case="extended" aria-pressed="false">Extended galaxy</button>
+</div>
+<ol class="slitless-pipeline" aria-label="Five steps from an image to a redshift">
+  <li class="slitless-stage" data-active="false">
+    <p class="stage-label"><span>1</span> Image</p>
+    <svg class="stage-svg" viewBox="0 0 200 132" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="sl-compact"><stop stop-color="#fff1d5"/><stop offset=".12" stop-color="#f6b99a"/><stop offset=".42" stop-color="#e5846f" stop-opacity=".5"/><stop offset="1" stop-color="#cb6259" stop-opacity="0"/></radialGradient>
+        <radialGradient id="sl-extended"><stop stop-color="#f5eadc"/><stop offset=".3" stop-color="#dcc6b6" stop-opacity=".62"/><stop offset="1" stop-color="#9fb1c1" stop-opacity="0"/></radialGradient>
+        <radialGradient id="sl-neighbour"><stop stop-color="#e4ecf2"/><stop offset=".22" stop-color="#a9c4dc" stop-opacity=".62"/><stop offset="1" stop-color="#6f8fae" stop-opacity="0"/></radialGradient>
+      </defs>
+      <path d="M6 6h14M6 6v14M194 6h-14M194 6v14M6 126h14M6 126v-14M194 126h-14M194 126v-14" fill="none" stroke="#8296a5" stroke-opacity=".5"/>
+      <g fill="#d6dbdf" opacity=".35"><circle cx="28" cy="28" r="1"/><circle cx="170" cy="106" r="1.2"/><circle cx="40" cy="112" r=".9"/><circle cx="178" cy="24" r=".9"/><circle cx="152" cy="96" r=".8"/></g>
+      <circle cx="134" cy="58" r="17" fill="url(#sl-neighbour)"/><circle cx="134" cy="58" r="1.8" fill="#eef3f6"/>
+      <g data-sl-shape="compact"><circle cx="72" cy="74" r="22" fill="url(#sl-compact)"/><circle cx="72" cy="74" r="2.4" fill="#ffe9d1"/></g>
+      <g data-sl-shape="extended" hidden><ellipse cx="72" cy="74" rx="31" ry="12.5" transform="rotate(-22 72 74)" fill="url(#sl-extended)"/><ellipse cx="72" cy="74" rx="8" ry="3.8" transform="rotate(-22 72 74)" fill="#f7ede0" opacity=".85"/></g>
+      <circle cx="72" cy="74" r="36" fill="none" stroke="#f0c2a5" stroke-opacity=".8" stroke-dasharray="3 4"/>
+    </svg>
+    <p class="stage-note">Target (ringed) and a neighbour</p>
+  </li>
+  <li class="slitless-stage" data-active="false">
+    <p class="stage-label"><span>2</span> Grism</p>
+    <svg class="stage-svg" viewBox="0 0 200 132" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="sl-trace-warm"><stop stop-color="#d9a68e" stop-opacity="0"/><stop offset=".12" stop-color="#d9a68e" stop-opacity=".34"/><stop offset=".88" stop-color="#d9a68e" stop-opacity=".3"/><stop offset="1" stop-color="#d9a68e" stop-opacity="0"/></linearGradient>
+        <linearGradient id="sl-trace-cool"><stop stop-color="#8fb0cc" stop-opacity="0"/><stop offset=".12" stop-color="#8fb0cc" stop-opacity=".3"/><stop offset=".88" stop-color="#8fb0cc" stop-opacity=".26"/><stop offset="1" stop-color="#8fb0cc" stop-opacity="0"/></linearGradient>
+        <radialGradient id="sl-line"><stop stop-color="#fff3e3"/><stop offset=".35" stop-color="#f6b99a" stop-opacity=".85"/><stop offset="1" stop-color="#e5846f" stop-opacity="0"/></radialGradient>
+        <clipPath id="sl-grism-clip"><rect x="6" y="6" width="188" height="120"/></clipPath>
+      </defs>
+      <path d="M6 6h14M6 6v14M194 6h-14M194 6v14M6 126h14M6 126v-14M194 126h-14M194 126v-14" fill="none" stroke="#8296a5" stroke-opacity=".5"/>
+      <rect x="12" y="49" width="176" height="18" rx="9" fill="url(#sl-trace-cool)"/>
+      <rect x="12" y="65" width="176" height="18" rx="9" fill="url(#sl-trace-warm)"/>
+      <g data-sl-line="compact"><circle cx="112" cy="72" r="9" fill="url(#sl-line)"/></g>
+      <g data-sl-line="extended" hidden><ellipse cx="112" cy="72" rx="16" ry="6.5" transform="rotate(-22 112 72)" fill="url(#sl-line)"/></g>
+      <circle cx="112" cy="72" r="19" fill="none" stroke="#ef8a74" stroke-width="1.2" stroke-dasharray="2 3"/>
+      <g clip-path="url(#sl-grism-clip)"><rect data-sl-sweep x="12" y="40" width="10" height="52" fill="#fff3e3" opacity="0"/></g>
+      <path d="M142 112h40m-6-5 6 5-6 5" fill="none" stroke="#9fb0bd" stroke-opacity=".8"/>
+    </svg>
+    <p class="stage-note">Traces overlap; one line</p>
+  </li>
+  <li class="slitless-stage" data-active="false">
+    <p class="stage-label"><span>3</span> Spectrum</p>
+    <svg class="stage-svg" viewBox="0 0 200 132" aria-hidden="true" focusable="false">
+      <path d="M16 14v100h174" fill="none" stroke="#879cac" stroke-opacity=".5"/>
+      <path d="M79 18v96" stroke="#b1b7b9" stroke-opacity=".5" stroke-dasharray="3 5"/>
+      <path data-sl-spectrum d="M16 98L70 96.4Q75 95 77 50Q79 28 81 50Q83 95 88 96L190 93" fill="none" stroke="#efae91" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle data-sl-cursor cx="16" cy="98" r="3.4" fill="#ffdec0" opacity="0"/>
+    </svg>
+    <p class="stage-note">One line at 4.30 μm</p>
+  </li>
+  <li class="slitless-stage slitless-evidence" data-active="false">
+    <p class="stage-label"><span>4</span> Evidence</p>
+    <dl class="evidence-list">
+      <div class="evidence-row">
+        <dt>Shape match</dt>
+        <dd>
+          <span class="meter-row" aria-hidden="true"
+            ><span class="meter"><i data-sl-bar="target" style="width: 86%"></i></span><small>target</small></span
+          >
+          <span class="meter-row" aria-hidden="true"
+            ><span class="meter"><i data-sl-bar="neighbour" style="width: 31%"></i></span><small>neighbour</small></span
+          >
+          <span class="sr-only">The 2-D line matches the target's shape better than the neighbour's.</span>
+        </dd>
+      </div>
+      <div class="evidence-row">
+        <dt>Photo-z</dt>
+        <dd>
+          <svg class="photoz-svg" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M4 28h112" stroke="#6c8397" stroke-opacity=".7" vector-effect="non-scaling-stroke"/>
+            <path vector-effect="non-scaling-stroke" data-sl-photoz d="M4 28L16 27.6Q22.2 15.2 28.4 27.6L72 27.6Q81 -15.6 90 27.6L116 28Z" fill="#e6b39a" fill-opacity=".22" stroke="#e6b39a" stroke-width="1.3"/>
+          </svg>
+          <span class="photoz-ticks" aria-hidden="true"><span style="left: 18.5%">1.3</span><span style="left: 67.5%">5.5</span></span>
+          <span class="sr-only" data-sl-photoz-text>Two redshift solutions, z ≈ 1.3 and z ≈ 5.5; the higher one is favoured.</span>
+        </dd>
+      </div>
+      <div class="evidence-row">
+        <dt>Blue bands</dt>
+        <dd>
+          <span class="band-row" data-sl-bands aria-hidden="true"
+            ><span data-detected="false">F606W</span><span data-detected="false">F814W</span><span data-detected="true">F150W</span
+            ><span data-detected="true">F444W</span></span
+          >
+          <span class="sr-only" data-sl-bands-text>Faint in F606W and F814W; detected in F150W and F444W.</span>
+        </dd>
+      </div>
+      <div class="evidence-row">
+        <dt>Line EW</dt>
+        <dd>
+          <span class="meter-row"
+            ><span class="meter" aria-hidden="true"><i data-sl-bar="ew" style="width: 84%"></i></span><small data-sl-ew>large</small></span
+          >
+        </dd>
+      </div>
+    </dl>
+  </li>
+  <li class="slitless-stage slitless-decision" data-active="false">
+    <p class="stage-label"><span>5</span> Decision</p>
+    <div class="decision-step">
+      <span>LLM proposal</span>
+      <strong data-sl-llm>Hα · z = 5.55</strong>
+    </div>
+    <div class="decision-step decision-review" data-sl-review-state="confirmed">
+      <span>Human review</span>
+      <strong data-sl-review>✓ Confirmed</strong>
+      <em data-sl-review-note>Compact, faint in blue bands, strong line</em>
+    </div>
+  </li>
+</ol>
+<p class="scene-description" data-slitless-description aria-live="polite">
+  Example 1 · A compact source that is faint in the bluest bands and has a strong line. The LLM proposes Hα at z = 5.55; review confirms it.
+</p>

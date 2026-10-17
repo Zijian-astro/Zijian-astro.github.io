@@ -1,0 +1,206 @@
+# Homepage copy. Publication metadata stays in _bibliography/papers.bib.
+# Facts still awaiting confirmation use `confirm:` (or `confirmed: false`). They render as
+# dashed "To confirm" notes in local builds and are omitted from production builds.
+eyebrow: Observational astrophysics
+headline: Tracing black holes<br>through light &amp; time.
+intro: >-
+  I study black hole growth in the early Universe, with a focus on little red dots —
+  their physical nature, their place among active galaxies, and their connection to their hosts.
+name_cn: 张子键
+role: PhD student · Peking University
+research_heading: One question. Time, populations, spectra &amp; space.
+research_intro: >-
+  What can little red dots tell us about the growth of early black holes? I follow them through
+  time and across populations, work on the JWST imaging and slitless spectroscopy behind these
+  measurements, and am now extending the picture to their host galaxies.
+research:
+  - id: little-red-dots
+    number: "01"
+    nav: Central engines
+    category: Time-domain astrophysics
+    branch: "I · The nature of little red dots"
+    title: Inside<br>little red dots.
+    question: What powers these compact red sources?
+    description: >-
+      I use variability to probe the origin of their light and the gas around their central
+      engines. Different timescales give complementary clues to their physical state.
+    findings:
+      - year: 2025
+        venue: ApJ
+        text: >-
+          Multi-epoch JWST imaging of 314 little red dots: on average they show no strong
+          variability, and eight are strongly variable candidates.
+        links:
+          - label: Paper
+            url: https://doi.org/10.3847/1538-4357/adcb3e
+          - label: Light curves
+            url: https://github.com/Zijian-astro/variable_LRD_candidates
+      - year: 2025
+        venue: arXiv
+        text: >-
+          A quadruply lensed LRD whose images are separated by up to ~130 years in light-travel
+          time. Colour and brightness differ by up to 0.7 mag between images, which we interpret
+          as pulsations of an extended, star-like envelope.
+        links:
+          - label: arXiv
+            url: https://arxiv.org/abs/2512.05180
+      - year: 2026
+        venue: arXiv
+        text: >-
+          If such pulsations follow a period–luminosity–temperature relation that can be validated
+          and calibrated, LRDs could measure distances. A proof-of-concept H₀ estimate, with
+          forecasts for decade-long monitoring.
+        links:
+          - label: arXiv
+            url: https://arxiv.org/abs/2606.05281
+    now: Monitoring nearby LRD analogs in photometry and spectroscopy.
+    diagram: temporal
+    caption: >-
+      Synthetic data. Large sample: only the sample size and the number of candidates follow the paper.
+      Lensed LRD: only the ~130-year span between the images does. Not measured variability.
+  - id: lrd-populations
+    number: "02"
+    nav: Populations
+    category: Spectroscopy & demographics
+    title: Little red dots<br>in context.
+    question: Where do LRDs fit among growing black holes?
+    description: >-
+      I compare little red and little blue dots to test how viewing geometry and intrinsic
+      physical state shape their appearance. Spectra let us look beyond colour.
+    findings:
+      - year: 2026
+        venue: ApJ
+        text: >-
+          Five LRDs with only narrow Hα (≈250 km/s): either dusty, compact star-forming galaxies
+          or black holes of 10⁵–10⁶ M☉. About 20% of previously selected candidates owed their
+          V-shaped SED to strong lines rather than a red continuum.
+        links:
+          - label: Paper
+            url: https://doi.org/10.3847/1538-4357/ae33c4
+      - year: 2026
+        venue: Nature Astronomy
+        text: >-
+          Two LRDs at z ≈ 2.9 that are also bright in X-rays, radio and the mid-infrared: hybrid
+          properties we interpret as LRDs in transition toward typical quasars.
+        links:
+          - label: Paper
+            url: https://doi.org/10.1038/s41550-026-02885-8
+    now: >-
+      A controlled LRD/LBD comparison with slitless spectra, plus photometric selection and NGPS
+      follow-up for number densities, tracking what each sample misses.
+    diagram: population
+    caption: >-
+      Synthetic sources and toy spectra with illustrative proportions; not a survey sample, a selection
+      criterion or an evolutionary sequence.
+  - id: slitless-spectroscopy
+    number: "03"
+    nav: Pixels to spectra
+    category: JWST imaging & slitless spectroscopy
+    branch: "Methods · From JWST data to measurements"
+    layout: wide
+    title: From pixels<br>to spectra.
+    question: Which galaxy produced this line, and at what redshift?
+    description: >-
+      Slitless spectroscopy disperses every source in the field at once. It is efficient, but
+      traces overlap and most spectra show a single line. In COSMOS-3D, we turned NIRCam imaging
+      and F444W grism data into a census of ~12,000 emission-line galaxies at z ≈ 0–9.
+    detail: >-
+      Each identification combines template cross-correlation, a Siamese network that compares
+      the 2-D line with candidate galaxy images, and an LLM agent that weighs redshift,
+      equivalent-width, SED and morphology evidence. Several authors then checked the results by eye.
+    metrics:
+      - value: "~12,000"
+        label: emission-line galaxies at z ≈ 0–9 in COSMOS-3D
+      - value: "88.3%"
+        label: of LLM redshifts agree with the final human-validated redshifts
+    caveat: >-
+      The most common disagreement is Paα read as Hα, a degeneracy that people resolve using
+      morphology, imaging and equivalent width.
+    contribution:
+      confirmed: false
+      text: >-
+        My contribution: which parts were mine? For example NIRCam image reduction, slitless
+        spectral extraction, or the LLM line-identification step.
+    links:
+      - label: Fu, Zhang et al. 2026 · submitted to ApJS
+        url: https://arxiv.org/abs/2610.13920
+    diagram: slitless
+    caption: >-
+      Synthetic sources, spectra and evidence. The workflow follows the paper; the values in this
+      figure are illustrative, not catalogue entries.
+  - id: black-holes-and-hosts
+    number: "04"
+    nav: Black holes & hosts
+    category: Spatially resolved spectroscopy
+    branch: "II · Black holes and their hosts"
+    title: From nuclei<br>to host galaxies.
+    question: Can gas motions weigh a little red dot?
+    description: >-
+      Integral-field spectroscopy records a spectrum at every position. In compact sources, the
+      JWST/NIRSpec image slicer can create an apparent velocity gradient: light that falls
+      off-centre within a slice shifts the measured wavelength. I am developing a correction that
+      predicts this from the light distribution and applies it to the detector data before the cube
+      is built.
+    detail: >-
+      Observations at two position angles give an independent test, because instrumental patterns
+      turn with the slicer while real motions stay on the sky. The aim is a dynamical mass for
+      LRDs: the total mass within the measured radius.
+    status: In progress
+    diagram: ifu
+    caption: >-
+      Synthetic illustration of the method and its logic. No measured cubes, velocities or test
+      results are shown.
+earlier:
+  id: earlier-work
+  nav: Earlier work
+  branch: Earlier work · X-ray AGN &amp; gamma-ray bursts
+  title: Before little red dots.
+  intro: >-
+    Before JWST, I used X-ray and gamma-ray observations to study variable accretion,
+    obscuration and relativistic jets.
+  items:
+    - year: 2023
+      venue: ApJ
+      title: X-ray-weak quasars
+      glyph: recovery
+      text: >-
+        Two quasars that were X-ray weak in archival Chandra data returned to normal X-ray levels
+        in XMM-Newton (factors of ~4 and ~9) with little UV/optical change, pointing to variable
+        obscuration.
+      url: https://doi.org/10.3847/1538-4357/ace7c2
+    - year: 2025
+      venue: ApJ
+      title: Extreme X-ray variability
+      glyph: flicker
+      text: >-
+        Eight AGN in the XMM-LSS field varying by factors of ~6–12: accretion-state changes in
+        five, including a changing-look AGN confirmed with new MMT spectra, and changing
+        obscuration in three.
+      url: https://doi.org/10.3847/1538-4357/adbb6b
+    - year: 2023
+      venue: RAA
+      title: GRB 220408B
+      glyph: pulses
+      text: >-
+        A three-episode gamma-ray burst detected by the GRID CubeSat mission, whose similar,
+        correlated episodes are explained by a precessing jet.
+      url: https://doi.org/10.1088/1674-4527/acfa59
+papers:
+  eyebrow: From questions to papers
+  title: First-author papers
+  intro: >-
+    My first-author papers, grouped by theme. Collaborations are listed on the full
+    publications page.
+  # Selected by arXiv ID, which survives ADS renaming a preprint after journal publication.
+  groups:
+    - title: Little red dots
+      eprints: ["2606.05281", "2512.05180", "2512.02096", "2506.04350", "2411.02729"]
+    - title: X-ray AGN &amp; gamma-ray bursts
+      eprints: ["2502.20556", "2307.07554", "2302.03215"]
+  notes:
+    - eprint: "2512.02096"
+      confirm: Author credit. ADS lists me second of twelve; am I co-first author?
+    - eprint: "2512.05180"
+      confirm: Journal status. The preprint says it was submitted; any update?
+    - eprint: "2606.05281"
+      confirm: Journal status. The preprint said PRL under review; any update?
