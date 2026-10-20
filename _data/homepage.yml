@@ -140,14 +140,11 @@ research:
     question: Can gas motions weigh a little red dot?
     description: >-
       Integral-field spectroscopy records a spectrum at every position. In compact sources, the
-      JWST/NIRSpec image slicer can create an apparent velocity gradient: light that falls
-      off-centre within a slice shifts the measured wavelength. I am developing a correction that
-      predicts this from the light distribution and applies it to the detector data before the cube
-      is built.
+      JWST/NIRSpec image slicer can imprint an apparent velocity gradient, so I am developing a
+      calibration that removes it.
     detail: >-
-      Observations at two position angles give an independent test, because instrumental patterns
-      turn with the slicer while real motions stay on the sky. The aim is a dynamical mass for
-      LRDs: the total mass within the measured radius.
+      The aim is a dynamical mass for LRDs: the total mass within the measured radius, not the
+      black hole alone.
     status: In progress
     diagram: ifu
     caption: >-
