@@ -148,8 +148,8 @@ research:
     status: In progress
     diagram: ifu
     caption: >-
-      Synthetic illustration of the method and its logic. No measured cubes, velocities or test
-      results are shown.
+      Synthetic illustration of the instrumental effect and the goal. No measured cubes, velocities
+      or test results are shown.
 earlier:
   id: earlier-work
   nav: Earlier work

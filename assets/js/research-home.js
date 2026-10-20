@@ -148,7 +148,7 @@
   // Large-sample view: a highlight visits example sources and draws their few-epoch light curves.
   const lcEpochs = [0, 0.35, 1.05, 1.9]; // years, illustrative
   const sampleNote = "Many LRDs, a few epochs over a few years: most stay within the noise; a minority are candidate variables.";
-  // IFU, steps 1-2: a compact source across five slices of unit width (synthetic, slice units).
+  // IFU, step 1: a compact source across five slices of unit width (synthetic, slice units).
   const erf = (x) => {
     const t = 1 / (1 + 0.3275911 * Math.abs(x)),
       y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
@@ -163,24 +163,16 @@
     return { flux, offset: centre + (sigma * (gaussPdf(a) - gaussPdf(b))) / Math.max(flux, 1e-9) - k };
   };
   const ifuSigma = 0.55, // source width
-    ifuModelSigma = 0.72, // a smoother light model under-predicts the offsets
     ifuOffsetScale = 4.2; // apparent velocity per unit offset, in colour-scale units
-  const ifuSliceState = (centre) =>
-    [-2, -1, 0, 1, 2].map((k) => ({ ...sliceLight(k, centre, ifuSigma), model: sliceLight(k, centre, ifuModelSigma).offset }));
-  // IFU, step 3: a real sky gradient plus an instrumental gradient perpendicular to the slices.
-  const paSky = (x, y) => 0.9 * (x * Math.cos(0.44) - y * Math.sin(0.44));
-  const paInstrument = (x, y, angle) => -x * Math.sin(angle) + y * Math.cos(angle);
-  const paSecond = (-75 * Math.PI) / 180;
-  // IFU, step 4: a toy rotation curve; the apparent one is inflated by an uncorrected gradient.
+  const ifuSliceState = (centre) => [-2, -1, 0, 1, 2].map((k) => sliceLight(k, centre, ifuSigma));
+  // IFU, step 2: a toy rotation curve; the apparent one is inflated by an uncorrected gradient.
   const vCorrected = (r) => Math.tanh(2.2 * r),
     apparentFactor = 1.35;
   const ease = (u) => u * u * (3 - 2 * u);
-  const ifuLayers = { 1: "slices", 2: "slices", 3: "pa", 4: "mass" };
+  const ifuLayers = { 1: "slices", 2: "mass" };
   const ifuStepNotes = {
-    1: "No gas motion is put in. Light falling off-centre within each slice shifts that slice's wavelength, so a compact source shows an apparent gradient across the slices; it changes as the dither moves the source.",
-    2: "The correction predicts each slice's offset from the light distribution alone, with no velocities, and shifts the detector samples before drizzle builds the cube. An imperfect light model leaves a residual.",
-    3: "At a second position angle the instrumental pattern turns with the slicer, while real motion stays on the sky. Their difference isolates the instrumental part: an independent check, not a target to tune to.",
-    4: "The goal: a corrected rotation speed v at radius R gives a dynamical mass, the total mass inside R. Because it grows as v², a speed 1.35× too high makes the mass 1.8× too large.",
+    1: "No gas motion is put in, yet light falling off-centre within each slice shifts that slice's wavelength, so a compact source shows an apparent velocity gradient across the slices.",
+    2: "The goal: a corrected rotation speed v at radius R gives a dynamical mass, the total mass inside R. Because it grows as v², a speed 1.35× too high makes the mass 1.8× too large.",
   };
   const velocityStops = [
     [125, 164, 197],
@@ -348,10 +340,9 @@
       cell.setAttribute("opacity", (0.12 + 0.88 * Math.sqrt(slices[k].flux / fluxMax) * Math.exp(-(((c - 3) / 2.2) ** 2))).toFixed(2));
     });
   }
-  // Steps 1-2: per-slice centroid offsets shift each slice's line; step 2 moves them back by the model.
-  function renderIfuSlices(scene, centre, progress) {
-    const s = states.get(scene),
-      slices = ifuSliceState(centre),
+  // Step 1: per-slice centroid offsets shift each slice's line.
+  function renderIfuSlices(scene, centre) {
+    const slices = ifuSliceState(centre),
       fluxMax = Math.max(...slices.map((d) => d.flux)),
       tilt = [];
     scene.querySelector("[data-ifu-psf]").setAttribute("cy", (150 + 36 * centre).toFixed(1));
@@ -359,28 +350,17 @@
       const g = scene.querySelector(`[data-ifu-slice="${i}"]`),
         yc = 78 + 36 * i,
         lit = d.flux / fluxMax > 0.03,
-        correcting = s.step === 2 && lit,
         cy = yc + 36 * d.offset,
-        xc = 376 + 70 * (d.offset - (s.step === 2 ? d.model * progress : 0)),
+        xc = 376 + 70 * d.offset,
         amp = 26 * (d.flux / fluxMax);
       g.querySelector("[data-ifu-offset]").setAttribute("d", `M172 ${yc}V${cy.toFixed(1)}`);
       const dot = g.querySelector("[data-ifu-centroid]");
       dot.setAttribute("cy", cy.toFixed(1));
       dot.setAttribute("opacity", lit ? "1" : ".25");
-      const model = g.querySelector("[data-ifu-model]");
-      model.setAttribute("cy", (yc + 36 * d.model).toFixed(1));
-      model.setAttribute("opacity", correcting ? "1" : "0");
       g.querySelector("[data-ifu-bump]").setAttribute(
         "d",
         path((x) => yc - amp * Math.exp(-(((x - xc) / 7) ** 2)), 262, 490)
       );
-      // Arrow under the baseline: the predicted shift that the correction removes.
-      const from = 376 + 70 * d.offset,
-        to = 376 + 70 * (d.offset - d.model),
-        head = to > from ? -5 : 5;
-      const fix = g.querySelector("[data-ifu-fix]");
-      fix.setAttribute("d", `M${from.toFixed(1)} ${yc + 7}H${to.toFixed(1)}m${head} -3l${-head} 3l${head} 3`);
-      fix.setAttribute("opacity", correcting ? "1" : "0");
       if (lit) tilt.push(`${tilt.length ? "L" : "M"}${xc.toFixed(1)} ${yc}`);
     });
     scene.querySelector("[data-ifu-tilt]").setAttribute("d", tilt.join(""));
@@ -390,41 +370,8 @@
       slices,
       fluxMax
     );
-    paintSliceMap(
-      scene.querySelector('[data-ifu-map="after"]'),
-      slices.map((d) => ifuOffsetScale * (d.offset - d.model)),
-      slices,
-      fluxMax
-    );
   }
-  // Step 3: the slicer turns between two position angles; the sky gradient does not.
-  function renderIfuPa(scene, angle) {
-    scene.querySelectorAll("[data-ifu-disk-cell]").forEach((cell) => {
-      const i = +cell.dataset.ifuDiskCell,
-        x = ((i % 13) - 6) / 6.46,
-        y = (Math.floor(i / 13) - 6) / 6.46;
-      cell.setAttribute("fill", velocityColour(paSky(x, y) + paInstrument(x, y, angle)));
-    });
-    const turn = `rotate(${((angle * 180) / Math.PI).toFixed(1)} 150 168)`;
-    scene.querySelector("[data-ifu-stripes]").setAttribute("transform", turn);
-    scene.querySelector("[data-ifu-inst-arrow]").setAttribute("transform", turn);
-    scene.querySelector("[data-ifu-pa-label]").textContent = Math.abs(angle) < Math.abs(paSecond) / 2 ? "PA 1" : "PA 2";
-  }
-  function paintPaMinis(scene) {
-    const fields = {
-      1: (x, y) => paSky(x, y) + paInstrument(x, y, 0),
-      2: (x, y) => paSky(x, y) + paInstrument(x, y, paSecond),
-      3: (x, y) => paInstrument(x, y, 0) - paInstrument(x, y, paSecond),
-    };
-    scene.querySelectorAll("[data-ifu-mini]").forEach((mini) => {
-      const field = fields[mini.dataset.ifuMini];
-      mini.querySelectorAll("[data-ifu-mini-cell]").forEach((cell) => {
-        const i = +cell.dataset.ifuMiniCell;
-        cell.setAttribute("fill", velocityColour(field(((i % 9) - 4) / 4.45, (Math.floor(i / 9) - 4) / 4.45)));
-      });
-    });
-  }
-  // Step 4: dynamical mass scales with v², so an apparent gradient inflates it.
+  // Step 2: dynamical mass scales with v², so an apparent gradient inflates it.
   function renderIfuMass(scene, t, grow) {
     const curve = (f) => path((x) => 196 - 92 * f((x - 286) / 160), 286, 490);
     scene.querySelector('[data-ifu-curve="corrected"]').setAttribute("d", curve(vCorrected));
@@ -442,26 +389,14 @@
     const s = states.get(scene),
       t = s.stepTime,
       live = scene.dataset.playing === "true";
-    if (s.step === 1) renderIfuSlices(scene, live ? 0.4 * Math.sin((2 * Math.PI * t) / 5.5) : 0.3, 0);
-    if (s.step === 2) {
-      const p = t % 6.5;
-      renderIfuSlices(scene, 0.3, !live ? 1 : p < 1.6 ? 0 : p < 3.2 ? ease((p - 1.6) / 1.6) : 1);
-    }
-    if (s.step === 3) {
-      const p = t % 8,
-        q = !live || p < 3 ? 0 : p < 4.2 ? ease((p - 3) / 1.2) : p < 7 ? 1 : 1 - ease(p - 7);
-      renderIfuPa(scene, q * paSecond);
-    }
-    if (s.step === 4) renderIfuMass(scene, t, live ? ease(Math.min(1, t / 1.5)) : 1);
+    if (s.step === 1) renderIfuSlices(scene, live ? 0.4 * Math.sin((2 * Math.PI * t) / 5.5) : 0.3);
+    if (s.step === 2) renderIfuMass(scene, t, live ? ease(Math.min(1, t / 1.5)) : 1);
   }
   function setIfuStep(scene, step, announce = false) {
     const s = states.get(scene);
     s.step = step;
     s.stepTime = 0;
     scene.querySelectorAll("[data-ifu-layer]").forEach((layer) => layer.toggleAttribute("hidden", layer.dataset.ifuLayer !== ifuLayers[step]));
-    scene.querySelectorAll("[data-ifu-step2-only]").forEach((el) => el.setAttribute("opacity", step === 2 ? "1" : "0"));
-    scene.querySelector("[data-ifu-step1-only]").toggleAttribute("hidden", step !== 1);
-    scene.querySelector("[data-ifu-map-label]").textContent = step === 2 ? "before correction" : "velocity map";
     pressed(s.stepButtons, s.stepButtons[step - 1]);
     s.say(ifuStepNotes[step], announce);
     renderIfuStep(scene);
@@ -469,7 +404,7 @@
   function tickIfu(scene, delta) {
     const s = states.get(scene);
     s.stepTime += delta;
-    if (s.tour && s.stepTime > 9.5) setIfuStep(scene, (s.step % 4) + 1);
+    if (s.tour && s.stepTime > 9.5) setIfuStep(scene, (s.step % 2) + 1);
     else renderIfuStep(scene);
   }
   function renderSlitless(scene, announce = false) {
@@ -691,7 +626,6 @@
         })
       );
       tourLabel();
-      paintPaMinis(scene);
       setIfuStep(scene, 1);
     }
     if (scene.dataset.scene === "slitless") {
