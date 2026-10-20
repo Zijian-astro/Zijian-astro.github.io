@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-New publication added: [Local Analogs of Little Red Dots: Optical Variability and Evidence for an Active Galactic Nucleus Origin](/publications/) (The Astrophysical Journal).
+Now out in *The Astrophysical Journal*: [Local Analogs of Little Red Dots: Optical Variability and Evidence for an Active Galactic Nucleus Origin](https://doi.org/10.3847/1538-4357/ae74c6) (Lin et al.).

@@ -1,0 +1,301 @@
+/*******************************************************************************
+ * Site-wide type and colour, shared with the "Deep Field" homepage.
+ * The homepage itself is always dark (see _research-home.scss); the other pages
+ * keep al-folio's light/dark switch with these palettes.
+ ******************************************************************************/
+
+:root {
+  --df-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --df-sans: Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --df-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --global-bg-color: #fbfaf7;
+  --global-text-color: #141a2a;
+  --global-text-color-light: #5d6474;
+  --global-theme-color: #d63d22;
+  --global-hover-color: #b8321a;
+  --global-divider-color: rgba(20, 26, 42, 0.12);
+  --global-code-bg-color: rgba(214, 61, 34, 0.05);
+  --global-footer-bg-color: #141a2a;
+  --global-footer-text-color: #b9bfcc;
+  --global-footer-link-color: #f4efe6;
+}
+
+html[data-theme="dark"] {
+  --global-bg-color: #070b16;
+  --global-code-bg-color: #0e1527;
+  --global-text-color: #f4efe6;
+  --global-text-color-light: #9aa3b4;
+  --global-theme-color: #ff6a4d;
+  --global-hover-color: #ffb547;
+  --global-divider-color: rgba(255, 255, 255, 0.1);
+  --global-card-bg-color: #0e1527;
+  --global-footer-bg-color: #0b1120;
+  --global-footer-text-color: #9aa3b4;
+  --global-footer-link-color: #f4efe6;
+}
+
+body {
+  font-family: var(--df-sans);
+  -webkit-font-smoothing: antialiased;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--df-mono);
+}
+
+// Page titles, year dividers and section headings use the display serif,
+// which has a single weight.
+.post-title,
+.post article h2,
+.publications h2.bibliography,
+.card-title {
+  font-family: var(--df-serif);
+  font-weight: 400 !important;
+  letter-spacing: -0.012em;
+}
+.post-header .post-title {
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  line-height: 1;
+}
+.post-header .post-title::first-letter {
+  text-transform: uppercase;
+}
+.post-description {
+  font-family: var(--df-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}
+.publications h2.bibliography {
+  font-size: 2.4rem;
+  color: var(--global-text-color-light);
+}
+.card-title {
+  font-size: 1.9rem;
+}
+
+// Navigation: the same brand mark as the homepage.
+#navbar .nav-link {
+  text-transform: capitalize;
+}
+#navbar .home-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  color: var(--global-text-color);
+}
+#navbar .home-brand > span[lang] {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--global-text-color-light);
+  margin-left: 4px;
+  letter-spacing: 0.06em;
+}
+.red-point {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+  background: #ff5a3c;
+  box-shadow: 0 0 14px 4px rgba(255, 90, 60, 0.5);
+}
+@media (max-width: 760px) {
+  #navbar .home-brand {
+    font-size: 18px;
+    gap: 10px;
+  }
+  #navbar .home-brand > span[lang] {
+    display: none;
+  }
+}
+
+// Larger reading sizes on the content pages.
+body:not(.research-home) {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+footer.fixed-bottom {
+  font-size: 0.85rem;
+}
+#toc-sidebar .nav-link,
+.toc-sidebar .nav-link {
+  font-size: 0.95rem;
+}
+
+// Publications page.
+.publications ol.bibliography li {
+  .title {
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .author,
+  .periodical {
+    font-size: 1rem;
+  }
+}
+.first-author-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.55rem;
+  border: 1px solid var(--global-theme-color);
+  border-radius: 999px;
+  font-family: var(--df-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  vertical-align: 0.15em;
+  color: var(--global-theme-color);
+}
+
+// Talks (talks page and CV).
+.talk-heading {
+  font-family: var(--df-serif);
+  font-weight: 400;
+  font-size: 2.2rem;
+  margin: 2.2rem 0 0.9rem;
+}
+.talk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--global-divider-color);
+}
+.talk-list li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1.4rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+.talk-list time {
+  padding-top: 0.15rem;
+  font-family: var(--df-mono);
+  font-size: 0.95rem;
+  color: var(--global-theme-color);
+}
+.talk-list p {
+  margin: 0;
+}
+.talk-meeting {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.talk-meeting span {
+  font-weight: 400;
+  color: var(--global-text-color-light);
+}
+.talk-meeting span::before {
+  content: " · ";
+}
+.talk-list .talk-title {
+  margin-top: 0.25rem;
+  color: var(--global-text-color);
+}
+.talk-list .talk-kind {
+  margin-top: 0.4rem;
+  font-family: var(--df-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}
+.talk-award {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 181, 71, 0.18);
+  font-family: var(--df-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #8a4f00;
+}
+html[data-theme="dark"] .talk-award {
+  color: #ffb547;
+}
+.cv .talk-list {
+  border-top: 0;
+}
+.cv .talk-list li {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+// CV: publications read from papers.bib, readable weights and theme-coloured date badges.
+.cv-bibliography ol.bibliography {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cv-bibliography ol.bibliography > li {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+.cv-bibliography ol.bibliography > li:last-child {
+  border-bottom: 0;
+}
+.cv-paper {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 1.2rem;
+}
+.cv-paper-year {
+  font-family: var(--df-mono);
+  font-size: 0.95rem;
+  color: var(--global-theme-color);
+}
+.cv-paper-title {
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--global-text-color);
+}
+.cv-paper-authors,
+.cv-paper-venue {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+}
+.cv-paper-venue {
+  font-style: italic;
+}
+.cv .font-weight-light {
+  font-weight: 400 !important;
+}
+.cv .badge.danger-color-dark {
+  background-color: var(--global-theme-color) !important;
+}
+.cv .card {
+  border-radius: 14px;
+}
+
+@media (max-width: 575px) {
+  .talk-list li,
+  .cv-paper {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.3rem;
+  }
+}
+.paper-status-badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.55rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  font-family: var(--df-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  vertical-align: 0.15em;
+  color: var(--global-text-color-light);
+}

@@ -205,17 +205,58 @@ def clean_title(title: str) -> str:
         r"\textasciitilde": "~",
         r"{\textendash}": "--",
         r"$zrsim10$": "z~10",
+        "$H_0$": "H₀",
+        "H_0": "H₀",
     }
     for old, new in replacements.items():
         title = title.replace(old, new)
     return re.sub(r"\s+", " ", title).strip()
 
 
+def author_last_names(entry: str) -> list[str]:
+    authors = bibtex_field(entry, "author") or ""
+    return [name.split(",", 1)[0].strip().strip("{}") for name in authors.split(" and ") if name.strip()]
+
+
+def my_author_index(entry: str) -> int | None:
+    authors = (bibtex_field(entry, "author") or "").split(" and ")
+    for index, author in enumerate(authors):
+        if any(pattern.search(author.strip()) for pattern in AUTHOR_PATTERNS):
+            return index
+    return None
+
+
+def news_sentence(entry: str, title: str, journal: str) -> str:
+    """One natural sentence for the homepage news, linking to the paper itself."""
+    preprint = journal.lower().startswith("arxiv")
+    doi = bibtex_field(entry, "doi")
+    eprint = bibtex_field(entry, "eprint")
+    if preprint and eprint:
+        link = f"https://arxiv.org/abs/{eprint}"
+    elif doi:
+        link = f"https://doi.org/{doi}"
+    else:
+        link = "/publications/"
+    paper = f"[{title}]({link})"
+
+    position = my_author_index(entry)
+    if position == 0:
+        return f"New preprint: {paper}." if preprint else f"My paper {paper} is now out in *{journal}*."
+
+    # Credit the authors up to my name when I am among the first three, otherwise the lead author.
+    names = author_last_names(entry)
+    shown = names[: position + 1] if position is not None and position < 3 else names[:1]
+    credit = ", ".join(shown) + (" et al." if len(names) > len(shown) else "")
+    if preprint:
+        return f"New preprint: {paper} ({credit})."
+    return f"Now out in *{journal}*: {paper} ({credit})."
+
+
 def news_items_from_bibtex(bibtex: str, limit: int) -> list[tuple[str, str, str]]:
     if limit <= 0:
         return []
 
-    items: list[tuple[int, int, str, str, str]] = []
+    items: list[tuple[int, int, str, str]] = []
     for chunk in iter_bibtex_entries(bibtex):
         key = bibtex_key(chunk)
         year = bibtex_year(chunk)
@@ -223,10 +264,10 @@ def news_items_from_bibtex(bibtex: str, limit: int) -> list[tuple[str, str, str]
         title = bibtex_field(chunk, "title")
         journal = bibtex_field(chunk, "journal") or "ADS"
         if key and year and title:
-            items.append((year, month, key, clean_title(title), journal))
+            items.append((year, month, key, news_sentence(chunk, clean_title(title), journal)))
 
     items.sort(reverse=True)
-    return [(f"{year}-{month:02d}-01", key, title, journal) for year, month, key, title, journal in items[:limit]]
+    return [(f"{year}-{month:02d}-01", key, sentence) for year, month, key, sentence in items[:limit]]
 
 
 def write_publication_news(news_dir: Path, bibtex: str, limit: int) -> None:
@@ -235,7 +276,7 @@ def write_publication_news(news_dir: Path, bibtex: str, limit: int) -> None:
     for path in news_dir.glob("ads-publication-*.md"):
         path.unlink()
 
-    for date, key, title, journal in news_items_from_bibtex(bibtex, limit):
+    for date, key, sentence in news_items_from_bibtex(bibtex, limit):
         safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "-", key)
         path = news_dir / f"ads-publication-{safe_key}.md"
         path.write_text(
@@ -248,7 +289,7 @@ def write_publication_news(news_dir: Path, bibtex: str, limit: int) -> None:
                     "related_posts: false",
                     "---",
                     "",
-                    f"New publication added: [{title}](/publications/) ({journal}).",
+                    sentence,
                     "",
                 ]
             ),

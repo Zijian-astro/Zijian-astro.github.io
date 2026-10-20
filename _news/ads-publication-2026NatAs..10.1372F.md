@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-New publication added: [The discovery of two little red dots in transition into quasars](/publications/) (Nature Astronomy).
+Now out in *Nature Astronomy*: [The discovery of two little red dots in transition into quasars](https://doi.org/10.1038/s41550-026-02885-8) (Fu, Zhang et al.).

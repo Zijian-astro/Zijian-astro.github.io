@@ -1,0 +1,33 @@
+---
+---
+{% comment %}
+  Title and authorship line for a result card, read from papers.bib by arXiv ID so it follows the monthly ADS update.
+  First-author papers get a badge; otherwise the author list is shown up to my name.
+{% endcomment %}
+{% assign paper_note = site.data.homepage.papers.notes | where_exp: 'note', 'note.eprint == entry.eprint' | first %}
+{% assign my_position = 0 %}
+{% for author in entry.author_array %}
+  {% if author.last == 'Zhang' and author.first contains 'Zijian' %}
+    {% assign my_position = forloop.index %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+<div class="finding-paper">
+  {% if paper_note.role %}
+    <span class="finding-role">{{ paper_note.role }}</span>
+  {% elsif my_position == 1 %}
+    <span class="finding-role">First author</span>
+  {% elsif my_position > 1 and my_position <= 3 %}
+    <span class="finding-role finding-role-co">
+      {%- for author in entry.author_array limit: my_position -%}
+        {%- if forloop.last -%}
+          <strong>{{ author.last }}</strong>
+        {%- else -%}
+          {{ author.last }},
+        {% endif -%}
+      {%- endfor %}
+      et al.</span
+    >
+  {% endif %}
+  <p class="finding-title">{{ entry.title | replace: 'H_0', 'H₀' | replace: '  300', ' ~300' }}</p>
+</div>

@@ -15,14 +15,14 @@
     <aside class="hero-portrait" aria-label="About Zijian Zhang">
       <div class="portrait-frame">
         <img
-          src="{{ '/assets/img/profile.png' | relative_url }}"
-          width="1482"
-          height="1280"
-          alt="Zijian Zhang at sunset beside observatory domes"
+          src="{{ '/assets/img/portrait.jpg' | relative_url }}"
+          width="800"
+          height="800"
+          alt="Portrait of Zijian Zhang on a lake"
           fetchpriority="high"
           loading="eager"
         >
-        <span class="portrait-marker" aria-hidden="true">＋</span>
+        <span class="portrait-marker" aria-hidden="true"></span>
       </div>
       <div class="portrait-caption">
         <strong
@@ -41,12 +41,12 @@
   <div class="research-index" aria-label="Research themes">
     <span class="index-label">Research notebook</span>
     {% for theme in home.research %}
-      <a href="#{{ theme.id }}"
+      <a class="tone-{{ theme.diagram }}" href="#{{ theme.id }}"
         ><span>{{ theme.number }}</span>{{ theme.nav -}}
         <span aria-hidden="true">↘</span></a
       >
     {% endfor %}
-    <a href="#{{ home.earlier.id }}"
+    <a class="tone-earlier" href="#{{ home.earlier.id }}"
       ><span aria-hidden="true">··</span>{{ home.earlier.nav -}}
       <span aria-hidden="true">↘</span></a
     >
@@ -72,10 +72,14 @@
         </div>
       {% endif %}
       {% if theme.layout == 'wide' %}
-        <article class="research-story story-wide story-{{ theme.diagram }}" id="{{ theme.id }}" aria-labelledby="title-{{ theme.id }}">
+        <article
+          class="research-story story-wide story-{{ theme.diagram }} tone-{{ theme.diagram }}"
+          id="{{ theme.id }}"
+          aria-labelledby="title-{{ theme.id }}"
+        >
           <div class="research-copy wide-heading">
             <p class="home-eyebrow">
-              <span>{{ theme.number }}</span> / {{ theme.category }}
+              <span>{{ theme.number }}</span>{{ theme.category }}
             </p>
             <h3 id="title-{{ theme.id }}">{{ theme.title }}</h3>
           </div>
@@ -120,11 +124,11 @@
           </div>
         </article>
       {% else %}
-        <article class="research-story story-{{ theme.diagram }}" id="{{ theme.id }}" aria-labelledby="title-{{ theme.id }}">
+        <article class="research-story story-{{ theme.diagram }} tone-{{ theme.diagram }}" id="{{ theme.id }}" aria-labelledby="title-{{ theme.id }}">
           {% include research/figure.liquid theme=theme %}
           <div class="research-copy">
             <p class="home-eyebrow">
-              <span>{{ theme.number }}</span> / {{ theme.category }}
+              <span>{{ theme.number }}</span>{{ theme.category }}
             </p>
             <h3 id="title-{{ theme.id }}">{{ theme.title }}</h3>
             <p class="research-question">{{ theme.question }}</p>
@@ -140,6 +144,9 @@
                     <p class="finding-meta">
                       <strong>{{ finding.year }}</strong><span>{{ finding.venue }}</span>
                     </p>
+                    {% if finding.eprint %}
+                      {% bibliography --group_by none --template finding-paper --query @*[eprint={{ finding.eprint }}] %}
+                    {% endif %}
                     <div>
                       <p class="finding-text">{{ finding.text }}</p>
                       <p class="finding-links">
@@ -179,7 +186,7 @@
     {% endfor %}
 
     {% assign earlier = home.earlier %}
-    <section class="earlier-work" id="{{ earlier.id }}" aria-labelledby="earlier-title">
+    <section class="earlier-work tone-earlier" id="{{ earlier.id }}" aria-labelledby="earlier-title">
       <div class="research-branch">
         <span>{{ earlier.branch }}</span><span class="branch-rule" aria-hidden="true"></span>
       </div>
@@ -204,6 +211,9 @@
               <strong>{{ item.year }}</strong><span>{{ item.venue }}</span>
             </p>
             <h4>{{ item.title }}</h4>
+            {% if item.eprint %}
+              {% bibliography --group_by none --template finding-paper --query @*[eprint={{ item.eprint }}] %}
+            {% endif %}
             <p>{{ item.text }}</p>
             <a class="earlier-link" href="{{ item.url }}">Paper <span aria-hidden="true">↗</span></a>
           </li>
@@ -235,7 +245,7 @@
   <section id="news" class="home-news" aria-labelledby="news-title">
     <div>
       <p class="home-eyebrow">Along the way</p>
-      <h2 id="news-title">Latest updates</h2>
+      <h2 id="news-title">Latest <em>updates.</em></h2>
       <a class="home-text-link" href="{{ '/news/' | relative_url }}">All updates <span aria-hidden="true">↗</span></a>
     </div>
     <ol class="home-timeline">
@@ -259,7 +269,7 @@
     <span class="red-point" aria-hidden="true"></span>
     <div>
       <p class="home-eyebrow">A conversation starts here</p>
-      <h2 id="contact-title">Let's talk about the Universe.</h2>
+      <h2 id="contact-title">Let's talk about the <em>Universe.</em></h2>
     </div>
     <a href="mailto:{{ site.data.socials.email }}">
       {{- site.data.socials.email }}

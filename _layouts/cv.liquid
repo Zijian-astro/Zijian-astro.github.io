@@ -157,9 +157,19 @@ layout: default
               {% elsif section_title == 'Awards' or section_title == 'Honors and Awards' %}
                 {% assign entries = section_entries %}
                 {% include cv/awards.liquid %}
+              {% elsif section_title == 'Publications' and section_entries.size == 0 %}
+                {% comment %} Empty in cv.yml: list the homepage's selected papers from papers.bib by arXiv ID. {% endcomment %}
+                {%- capture cv_paper_query -%}
+                  @*[{% for group in site.data.homepage.papers.groups %}{% for eprint in group.eprints %}eprint={{ eprint }}{% unless forloop.last %} || {% endunless %}{% endfor %}{% unless forloop.last %} || {% endunless %}{% endfor %}]
+                {%- endcapture %}
+                <div class="cv-bibliography">
+                  {% bibliography --group_by none --template cv-paper --query {{ cv_paper_query }} %}
+                </div>
               {% elsif section_title == 'Publications' %}
                 {% assign entries = section_entries %}
                 {% include cv/publications.liquid %}
+              {% elsif section_title == 'Talks' and section_entries.size == 0 %}
+                {% include talk-list.liquid talks=site.data.talks.scientific %}
               {% elsif section_title == 'Skills' %}
                 {% assign entries = section_entries %}
                 {% include cv/skills.liquid %}

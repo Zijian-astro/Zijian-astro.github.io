@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-New publication added: [JWST COSMOS-3D: Spectroscopic census and luminosity function of [O III] emitters at 6.75 < z < 9.05 in COSMOS](/publications/) (Astronomy and Astrophysics).
+Now out in *Astronomy and Astrophysics*: [JWST COSMOS-3D: Spectroscopic census and luminosity function of [O III] emitters at 6.75 < z < 9.05 in COSMOS](https://doi.org/10.1051/0004-6361/202557671) (Meyer et al.).

@@ -1,0 +1,26 @@
+{% comment %} Talks from _data/talks.yml, used on the talks page and in the CV. {% endcomment %}
+<ol class="talk-list">
+  {% for talk in include.talks %}
+    <li>
+      <time datetime="{{ talk.date }}">{{ talk.date | append: '-01' | date: '%b %Y' }}</time>
+      <div>
+        <p class="talk-meeting">{{ talk.meeting }}<span>{{ talk.place }}</span></p>
+        {% if talk.title %}
+          <p class="talk-title">
+            {% if talk.url %}
+              <a href="{{ talk.url }}">{{ talk.title }} <span aria-hidden="true">↗</span></a>
+            {% else %}
+              {{ talk.title }}
+            {% endif %}
+          </p>
+        {% endif %}
+        {% if talk.kind or talk.award %}
+          <p class="talk-kind">
+            {{ talk.kind }}
+            {% if talk.award %}<span class="talk-award">{{ talk.award }}</span>{% endif %}
+          </p>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ol>

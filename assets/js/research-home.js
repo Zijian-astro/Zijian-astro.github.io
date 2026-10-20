@@ -567,6 +567,7 @@
       };
       const tourButton = document.createElement("button");
       tourButton.type = "button";
+      tourButton.setAttribute("data-tour", "");
       s.viewButtons[0].parentElement.append(tourButton);
       const tourLabel = () => {
         tourButton.setAttribute("aria-pressed", String(s.tour));
@@ -615,6 +616,7 @@
       };
       const tourButton = document.createElement("button");
       tourButton.type = "button";
+      tourButton.setAttribute("data-tour", "");
       s.modeButtons[0].parentElement.append(tourButton);
       const tourLabel = () => {
         tourButton.setAttribute("aria-pressed", String(s.tour));
@@ -670,6 +672,7 @@
       };
       const tourButton = document.createElement("button");
       tourButton.type = "button";
+      tourButton.setAttribute("data-tour", "");
       s.stepButtons[0].parentElement.append(tourButton);
       const tourLabel = () => {
         tourButton.setAttribute("aria-pressed", String(s.tour));
@@ -705,6 +708,7 @@
         tourButton = document.createElement("button");
       controls.className = "scene-controls";
       tourButton.type = "button";
+      tourButton.setAttribute("data-tour", "");
       controls.append(tourButton);
       scene.querySelector(".slitless-pipeline").after(controls);
       const tourLabel = () => {

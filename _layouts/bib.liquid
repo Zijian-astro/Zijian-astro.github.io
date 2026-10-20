@@ -48,7 +48,19 @@
   <!-- Entry bib key -->
   <div id="{{ entry.key }}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
     <!-- Title -->
-    <div class="title">{{ entry.title }}</div>
+    <div class="title">
+      {{- entry.title | replace: 'H_0', 'H₀' | replace: '  300', ' ~300' -}}
+      {%- assign first_author = entry.author_array | first -%}
+      {%- assign paper_note = site.data.homepage.papers.notes | where_exp: 'note', 'note.eprint == entry.eprint' | first -%}
+      {%- if paper_note.role %}
+        <span class="first-author-badge">{{ paper_note.role }}</span>
+      {%- elsif first_author.last == 'Zhang' and first_author.first contains 'Zijian' %}
+        <span class="first-author-badge">First author</span>
+      {%- endif -%}
+      {%- if paper_note.status %}
+        <span class="paper-status-badge">{{ paper_note.status }}</span>
+      {%- endif -%}
+    </div>
     <!-- Author -->
     <div class="author">
       {% assign author_array_size = entry.author_array | size %}

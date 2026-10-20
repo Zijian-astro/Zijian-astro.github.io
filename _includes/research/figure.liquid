@@ -1,7 +1,7 @@
 <figure class="research-figure">
   <div class="research-scene" data-scene="{{ include.theme.diagram }}">
     <div class="scene-header">
-      <span>Field note / {{ include.theme.number }}</span><span class="scene-kind">Synthetic</span>
+      <span>Field note / {{ include.theme.number }}</span><span class="scene-kind" title="{{ include.theme.caption | strip | escape }}">Synthetic</span>
     </div>
     {% case include.theme.diagram %}
       {% when 'temporal' -%}
@@ -14,5 +14,6 @@
         {%- include research/ifu.liquid %}
     {% endcase %}
   </div>
-  <figcaption>{{ include.theme.caption }}</figcaption>
+  {% comment %} The full caveat stays available to screen readers and as the tooltip on "Synthetic". {% endcomment %}
+  <figcaption class="sr-only">{{ include.theme.caption }}</figcaption>
 </figure>

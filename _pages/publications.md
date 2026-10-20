@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: publications
-description: publications by year. generated from BibTeX with jekyll-scholar.
+description: Papers and preprints, newest first, updated monthly from NASA ADS.
 nav: true
 nav_order: 2
 ---

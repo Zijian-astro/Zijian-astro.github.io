@@ -1,0 +1,56 @@
+# Talks page (_pages/talks.md) and the CV talks section. Newest first.
+# date: YYYY-MM. Optional: title, url, award.
+scientific:
+  - date: 2026-05
+    kind: Talk
+    meeting: Guoshoujing meeting
+    place: Haikou
+  - date: 2026-03
+    kind: Talk
+    meeting: JWST meeting
+    place: Tokyo
+  - date: 2025-12
+    kind: Talk
+    meeting: AGN Feedback Symposium
+    place: Nanjing
+  - date: 2025-06
+    kind: Talk
+    meeting: EREBUS & COSMOS-3D collaboration meeting
+    place: Bologna
+  - date: 2025-05
+    kind: Talk & poster
+    meeting: Guoshoujing Symposium
+    place: Changsha
+    award: Outstanding Poster Award
+  - date: 2024-11
+    kind: Talk
+    meeting: Symposium on Galaxy Evolution and Cosmology with CSST
+    place: Suzhou
+    award: Outstanding Oral Presentation Award
+  - date: 2024-10
+    kind: Talk
+    meeting: AGN Feedback Symposium
+    place: Shanghai
+    title: Investigation of the variability of LRD using JWST data
+  - date: 2024-09
+    kind: Talk
+    meeting: EREBUS collaboration meeting
+    place: Hilo
+    title: Investigation of the variability of LRD using JWST data
+
+other:
+  - date: 2024-04
+    title: "Exploring the Cosmos with DESI: BAO and RSD measurements"
+    url: https://www.bilibili.com/video/BV1zE421K732/
+    meeting: CSST Discussion
+    place: Beijing
+  - date: 2023-05
+    title: 天文统计学与MCMC
+    url: https://www.bilibili.com/video/BV1ds4y1u7gj/
+    meeting: Beacon
+    place: Nanjing
+  - date: 2022-08
+    title: 伽马暴数据分析
+    url: https://www.bilibili.com/video/BV1B8411W7KK/
+    meeting: 2022天格计划夏令营
+    place: Online
