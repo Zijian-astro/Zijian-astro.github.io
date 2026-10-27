@@ -1,0 +1,80 @@
+{% comment %} Tools from _data/tools.yml, used on the tools page. {% endcomment %}
+<div class="tool-list">
+  {% for tool in include.tools %}
+    <article class="tool{% unless tool.url %} tool--upcoming{% endunless %}">
+      {% if tool.url and tool.image %}
+        <a class="tool-shot" href="{{ tool.url }}" tabindex="-1" aria-hidden="true">
+          <img
+            src="{{ tool.image | relative_url }}"
+            alt=""
+            width="1200"
+            height="750"
+            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            decoding="async"
+          >
+        </a>
+      {% else %}
+        <div class="tool-shot tool-shot--placeholder" aria-hidden="true"><span>Not public yet</span></div>
+      {% endif %}
+
+      <div class="tool-body">
+        <p class="tool-meta">
+          {% if tool.url %}
+            <span class="tool-state">Live</span>
+          {% else %}
+            <span class="tool-state tool-state--soon">In development</span>
+          {% endif %}
+          {% if tool.host -%}
+            <span class="tool-host">{{ tool.host }}</span>
+          {%- endif %}
+          {% if tool.note -%}
+            <span>{{ tool.note }}</span>
+          {%- endif %}
+        </p>
+        <h2 class="tool-name">
+          {% if tool.url -%}
+            <a href="{{ tool.url }}">{{ tool.name }}</a>
+          {%- else -%}
+            {{- tool.name -}}
+          {%- endif %}
+        </h2>
+        <p class="tool-pitch">{{ tool.pitch }}</p>
+
+        {% if tool.features %}
+          <ul class="tool-features">
+            {% for feature in tool.features %}
+              <li>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if tool.parts %}
+          <dl class="tool-parts">
+            {% for part in tool.parts %}
+              <div>
+                <dt>
+                  <a href="{{ part.url }}">{{ part.name }}</a>
+                </dt>
+                <dd>{{ part.text }}</dd>
+              </div>
+            {% endfor %}
+          </dl>
+        {% endif %}
+
+        {% if tool.url %}
+          <p class="tool-links">
+            <a class="tool-open" href="{{ tool.url }}"
+              >Open {{ tool.name }}
+              <span aria-hidden="true">↗</span></a
+            >
+            {% if tool.source -%}
+              <a class="tool-source" href="{{ tool.source }}">Source on GitHub</a>
+            {%- endif %}
+          </p>
+        {% elsif tool.status %}
+          <p class="tool-status">{{ tool.status }}</p>
+        {% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</div>

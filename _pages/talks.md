@@ -4,7 +4,7 @@ permalink: /talks/
 title: talks
 description: Conference talks, posters and tutorials.
 nav: true
-nav_order: 3
+nav_order: 4
 ---
 
 {% comment %} Edit the lists in _data/talks.yml. {% endcomment %}

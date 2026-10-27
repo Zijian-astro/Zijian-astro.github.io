@@ -1,0 +1,51 @@
+# Tools page (_pages/tools.md). One entry per tool, in display order.
+# Fields: name, pitch, features (list), url + host (omit both for a tool that is not public yet),
+# source (GitHub), note (short line under the name), image (screenshot in assets/img/tools/), parts (sub-tools),
+# status (HTML, shown instead of the links when there is no url).
+- name: LRD Zoo
+  url: https://lrdzoo.zijianz.space/
+  host: lrdzoo.zijianz.space
+  source: https://github.com/Zijian-astro/lrd-zoo
+  note: Updated daily
+  image: /assets/img/tools/lrdzoo.webp
+  pitch: Every published JWST little red dot, cross-matched across papers.
+  features:
+    - Check whether a source has already been published.
+    - One merged catalogue with filters and CSV export.
+    - New LRD papers flagged daily from arXiv.
+
+- name: WebbRadar
+  url: https://jwst.zijianz.space/
+  host: jwst.zijianz.space
+  source: https://github.com/Zijian-astro/webbradar
+  note: Refreshed every 6 hours
+  image: /assets/img/tools/webbradar.webp
+  pitch: What JWST is observing now, and what is coming up.
+  features:
+    - The live schedule and upcoming plan windows.
+    - Observations and data releases that match your interests.
+
+- name: Astro Tools
+  url: https://zijian-astro.github.io/astro-tools/
+  host: zijian-astro.github.io/astro-tools
+  source: https://github.com/Zijian-astro/astro-tools
+  note: Runs in the browser
+  image: /assets/img/tools/objcard.webp
+  pitch: Small browser tools for high-redshift JWST work.
+  parts:
+    - name: ObjCard
+      url: https://zijian-astro.github.io/astro-tools/objcard/
+      text: JWST cutouts, spectra, X-ray coverage and redshifts for one position.
+    - name: LensCalc
+      url: https://zijian-astro.github.io/astro-tools/lenscalc/
+      text: Einstein radius, magnifications and time delays.
+    - name: GrismZ
+      url: https://zijian-astro.github.io/astro-tools/grismz/
+      text: Where emission lines land in NIRCam and NIRISS grism spectra.
+
+- name: COSMOS-3D Slitless Inspector
+  note: COSMOS-3D survey
+  pitch: Checks contamination in COSMOS-3D NIRCam slitless spectra and assigns each emission line to its true source.
+  status: >-
+    Will be released after the paper is accepted
+    (<a href="https://ui.adsabs.harvard.edu/abs/2026arXiv261013920F/abstract">Fu, Zhang et al. 2026</a>).
